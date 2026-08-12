@@ -1,0 +1,221 @@
+{
+  "generated_at": "2026-08-11T07:08:59.905383+00:00",
+  "raw_root": "/home/faai/Downloads/files/tttn-project-data/raw",
+  "sources": [
+    {
+      "source_id": "xss_adversarial_figshare_v4",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/XSS_dataset1.csv",
+          "sha256": "6c0bef978095bf3294231ba7b0cd74e2d0b02e2e3429a9acfa5efcb5546383e4",
+          "provider_checksum": "c420dcfa98acf57b3a4868cad60beae2",
+          "cached": false,
+          "status": "downloaded_verified"
+        },
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/XSS_dataset2.csv",
+          "sha256": "b046f8335453632e056eee5ee6c0c48630255cad6dbb10c7cd96f28735e7b813",
+          "provider_checksum": "ff785f080b5bb3055724beea669bc7e1",
+          "cached": false,
+          "status": "downloaded_verified"
+        },
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/XSS_dataset2_engineered.csv",
+          "sha256": "a41f51d161435cde44ee75f9b0b3debdd8db7021d4657790290bc424745bfba3",
+          "provider_checksum": "260142619421e6ebbbf64a4821d173f3",
+          "cached": false,
+          "status": "downloaded_verified"
+        },
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/XSS_dataset1_engineered.csv",
+          "sha256": "e93064af3119cb3087cdc5b6d4d67229734434a174a7cb52dc4cf80d309a4aa0",
+          "provider_checksum": "6694a45be6b091c1de976b05a75cee4f",
+          "cached": false,
+          "status": "downloaded_verified"
+        },
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/XSS_dataset1.engineered.pkl",
+          "sha256": "61647f5dc8e8d290b8d78f61a02965c8738ac54b5d339420b45ad4b0ca1672e2",
+          "provider_checksum": "e2ccb30af1ba60b585b74ffa9a509188",
+          "cached": false,
+          "status": "downloaded_verified"
+        },
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/XSS_dataset2.engineered.pkl",
+          "sha256": "ea501c27ff39fed736b04bf594f7a8f5c0b49e12a3a1224255e632202a8fc4a9",
+          "provider_checksum": "5f9d6d755904d38ee9a923fc4148ff92",
+          "cached": false,
+          "status": "downloaded_verified"
+        },
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/some_Generate datd1_.csv",
+          "sha256": "e9d4d0cda97fe64c780ea0a146afb378023c661ebd1f488fb60cdf2d989597a5",
+          "provider_checksum": "ab9c98c121b9ae9cbc4d1f45c0a9fa52",
+          "cached": false,
+          "status": "downloaded_verified"
+        },
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/xss_adversarial_figshare_v4/4/some_Generate datd2_.csv",
+          "sha256": "4cd2b64abb978955e31901ba7e110e2f78a5ea44cdfc153e7ae3d0234f2569e6",
+          "provider_checksum": "fd947a252be504e8c0f9348c56eae2e7",
+          "cached": false,
+          "status": "downloaded_verified"
+        }
+      ]
+    },
+    {
+      "source_id": "sr_bh_2020",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/sr_bh_2020/1.2/data_capec_multilabel.csv",
+          "sha256": "9c73c90ce6564ae48b14f7179cd864d037a6a130ef69c68c1626ec5d7ce4a910",
+          "provider_checksum": "173ec515308bdce5aec19cfd5b792596",
+          "cached": false,
+          "status": "downloaded_verified"
+        }
+      ]
+    },
+    {
+      "source_id": "webspotter_fpad_ood",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/webspotter_fpad_ood/5cdebaa9738b94bccef22c6d88092e2f142162a2/archive-5cdebaa9738b94bccef22c6d88092e2f142162a2.tar.gz",
+          "sha256": "9304235104ca59298b97e7dd450db3037df426ff6f0377be42359120e4db2e3b",
+          "provider_checksum": "9304235104ca59298b97e7dd450db3037df426ff6f0377be42359120e4db2e3b",
+          "cached": false,
+          "status": "downloaded_verified",
+          "requested_commit": "5cdebaa9738b94bccef22c6d88092e2f142162a2",
+          "archive_url_pinned": "https://github.com/Sec-AI-research/WebSpotter/archive/5cdebaa9738b94bccef22c6d88092e2f142162a2.tar.gz",
+          "verification_status": "archive_path_verified",
+          "verification_evidence": {
+            "allowlist": [
+              "datasets/FPAD",
+              "datasets/FPAD-OOD"
+            ],
+            "extracted_files": 3,
+            "archive_sha256": "9304235104ca59298b97e7dd450db3037df426ff6f0377be42359120e4db2e3b"
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "waf_a_mole_sql",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/waf_a_mole_sql/3eb1cef05210be04e8c55d6b45e7e2d0933803ae/archive-3eb1cef05210be04e8c55d6b45e7e2d0933803ae.tar.gz",
+          "sha256": "dba9c7f11b0ac05fddea4c57c7dbbd67af1a53571ac790b6b579faee0a78a152",
+          "provider_checksum": "dba9c7f11b0ac05fddea4c57c7dbbd67af1a53571ac790b6b579faee0a78a152",
+          "cached": false,
+          "status": "downloaded_verified",
+          "requested_commit": "3eb1cef05210be04e8c55d6b45e7e2d0933803ae",
+          "archive_url_pinned": "https://github.com/zangobot/wafamole_dataset/archive/3eb1cef05210be04e8c55d6b45e7e2d0933803ae.tar.gz",
+          "verification_status": "archive_path_verified",
+          "verification_evidence": {
+            "allowlist": [],
+            "extracted_files": 26,
+            "archive_sha256": "dba9c7f11b0ac05fddea4c57c7dbbd67af1a53571ac790b6b579faee0a78a152"
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "modsec_learn_http",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/modsec_learn_http/8f2b27ad477eac014719029f59c3eb8ada191a28/archive-8f2b27ad477eac014719029f59c3eb8ada191a28.tar.gz",
+          "sha256": "a2b1a3826a9c5b21abc2e3fc1d8ea5cd5f7d6aa9b0eb5772938d7fbb6bc05748",
+          "provider_checksum": "a2b1a3826a9c5b21abc2e3fc1d8ea5cd5f7d6aa9b0eb5772938d7fbb6bc05748",
+          "cached": false,
+          "status": "downloaded_verified",
+          "requested_commit": "8f2b27ad477eac014719029f59c3eb8ada191a28",
+          "archive_url_pinned": "https://github.com/pralab/modsec-learn-dataset/archive/8f2b27ad477eac014719029f59c3eb8ada191a28.tar.gz",
+          "verification_status": "archive_path_verified",
+          "verification_evidence": {
+            "allowlist": [],
+            "extracted_files": 15,
+            "archive_sha256": "a2b1a3826a9c5b21abc2e3fc1d8ea5cd5f7d6aa9b0eb5772938d7fbb6bc05748"
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "fwaf_queries",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/fwaf_queries/9c92866c55ee361743fbf9379a33b51bdcf376b8/archive-9c92866c55ee361743fbf9379a33b51bdcf376b8.tar.gz",
+          "sha256": "c3c890c88db0469ac1f158632f5def78b81c38adf22e46811aac2a961227fb39",
+          "provider_checksum": "c3c890c88db0469ac1f158632f5def78b81c38adf22e46811aac2a961227fb39",
+          "cached": false,
+          "status": "downloaded_verified",
+          "requested_commit": "9c92866c55ee361743fbf9379a33b51bdcf376b8",
+          "archive_url_pinned": "https://github.com/faizann24/Fwaf-Machine-Learning-driven-Web-Application-Firewall/archive/9c92866c55ee361743fbf9379a33b51bdcf376b8.tar.gz",
+          "verification_status": "archive_path_verified",
+          "verification_evidence": {
+            "allowlist": [],
+            "extracted_files": 6,
+            "archive_sha256": "c3c890c88db0469ac1f158632f5def78b81c38adf22e46811aac2a961227fb39"
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "large_scale_xss_mendeley_v1",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/large_scale_xss_mendeley_v1/1/xss_dataset.csv",
+          "sha256": "81648bab21a3f2859d50fa679fa2b34f54486b920c183460a3efcbbbcc43af4c",
+          "provider_checksum": "81648bab21a3f2859d50fa679fa2b34f54486b920c183460a3efcbbbcc43af4c",
+          "cached": false,
+          "status": "downloaded_verified"
+        }
+      ],
+      "provider_metadata_url": "https://data.mendeley.com/api/datasets/py6cnbgdh2/files",
+      "provider_file_id": "d56d9291-99c8-4a75-83f6-a327e10fad23"
+    },
+    {
+      "source_id": "bwafsqli",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/bwafsqli/214d976a04d241c650349fc3accb227c2e39d4ac/archive-214d976a04d241c650349fc3accb227c2e39d4ac.tar.gz",
+          "sha256": "14ae82e07736e1479af9b086730ba11d6cffc06118cde6a0b1c46c91e0a0cbf9",
+          "provider_checksum": "14ae82e07736e1479af9b086730ba11d6cffc06118cde6a0b1c46c91e0a0cbf9",
+          "cached": false,
+          "status": "downloaded_verified",
+          "requested_commit": "214d976a04d241c650349fc3accb227c2e39d4ac",
+          "archive_url_pinned": "https://github.com/KLSEHB/BWAFSQLi/archive/214d976a04d241c650349fc3accb227c2e39d4ac.tar.gz",
+          "verification_status": "archive_path_verified",
+          "verification_evidence": {
+            "allowlist": [],
+            "extracted_files": 130,
+            "archive_sha256": "14ae82e07736e1479af9b086730ba11d6cffc06118cde6a0b1c46c91e0a0cbf9"
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "sqli_attack_mendeley_v2",
+      "status": "downloaded_verified",
+      "artifacts": [
+        {
+          "path": "/home/faai/Downloads/files/tttn-project-data/raw/sqli_attack_mendeley_v2/2/SQLI_Dataset.csv",
+          "sha256": "47c62d0e4feddaa56132ce459cf5bbc8d170427212b01208ab784fce0d21ed03",
+          "provider_checksum": "47c62d0e4feddaa56132ce459cf5bbc8d170427212b01208ab784fce0d21ed03",
+          "size_bytes": 2426833,
+          "cached": false,
+          "status": "downloaded_verified"
+        }
+      ],
+      "provider_metadata_url": "https://data.mendeley.com/api/datasets/mmc4sdmnrc/files",
+      "provider_record_url": "https://data.mendeley.com/datasets/mmc4sdmnrc/2",
+      "provider_file_id": "1c158625-c17e-4691-856c-2a95f1129f8c"
+    }
+  ]
+}

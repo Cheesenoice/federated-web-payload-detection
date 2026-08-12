@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Antigravity / Agent system folders
+.gemini/
+.agents/
+
+# Heavy Data Files (Ignored from Git tracking to keep repo lightweight)
+data/raw/SRC_*
+data/interim/*.parquet
+data/processed/*.parquet
+data/partitions/*.parquet
+data/splits/*.parquet
+data/**/*.log
+data/**/*.csv
+data/**/*.jsonl
+data/**/*.txt
+data/**/*.zip
+data/**/*.tar.gz
+data/**/*.7z
+
+# Exceptions: Preserve folder structure via .gitkeep
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!data/external/.gitkeep
+!data/.gitkeep
+!models/.gitkeep
+!logs/.gitkeep
+!outputs/.gitkeep
+
+# Model Checkpoints & Logs
+models/*
+!models/.gitkeep
+checkpoints/
+outputs/*
+!outputs/.gitkeep
+logs/*
+!logs/.gitkeep
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
