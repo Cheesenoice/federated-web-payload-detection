@@ -207,8 +207,11 @@ def ingest_src00():
                     hint_label = "pathtrav"
                     binary = 1
                 elif sig.strip() != "":
+                    # An IDS/WAF alert with an unknown family is not evidence
+                    # of benign traffic. Quarantine it so it cannot inflate
+                    # the benign class or become a shortcut feature.
                     binary = 1
-                    hint_label = "benign" # Default fallback for general WAF/IDS alerts
+                    hint_label = "other"
                 
                 rows.append({
                     "id": f"SRC_00_sur_{log_name}_{idx}",

@@ -27,9 +27,9 @@ mislabelled source ingestion. The pipeline was repaired and one local-only
 
 | Stage | benign | XSS | SQLi | PathTrav | other | total |
 |---|---:|---:|---:|---:|---:|---:|
-| raw unified | 2,688,824 | 1,290,570 | 321,498 | 157,750 | 193,730 | 4,652,372 |
-| dedup lineage seeds | 38,072 | 22,981 | 30,047 | 3,054 | 30,145 | 124,299 |
-| trainable after local augmentation | 25,000 | 22,981 | 25,000 | 16,504 | 30,145 | 119,630 |
+| raw unified | 2,316,994 | 1,290,570 | 321,498 | 157,750 | 565,560 | 4,652,372 |
+| dedup lineage seeds | 38,022 | 23,269 | 29,990 | 2,260 | 35,187 | 128,728 |
+| trainable after local augmentation | 25,000 | 23,269 | 25,000 | 11,606 | 35,187 | 120,062 |
 
 The `other` quarantine is deliberately not counted as one of the four attack
 families. PathTrav has 3,054 independent seeds and 16,504 trainable rows after
@@ -44,8 +44,8 @@ examples.
 - Exact sanitized payload train/test overlap: **0**.
 - Client-test lineage overlap: **0**.
 - Client-test exact payload overlap: **0**.
-- Local train rows: C1 7,652; C2 7,651; C3 8,189; C4 8,189; C5 6,059;
-  C6 6,207.
+- Local train rows: C1 7,721; C2 7,719; C3 8,192; C4 8,190; C5 4,811;
+  C6 4,900.
 
 ## Local-only 6×6 result
 
@@ -54,7 +54,8 @@ Model `i` was trained only on `client_i_train`; every matrix cell was computed
 on `client_j_test`. Full metrics are in
 [`local_only_6x6_repaired.json`](../data/reporting/local_only_6x6_repaired.json).
 
-The four-class macro-F1 matrix is approximately 0.335–0.357. This is expected
+The four-class macro-F1 matrix is approximately 0.354–0.374 (diagonal mean
+0.364). This is expected
 for a family-disjoint model evaluated on all four families: each local model
 learns its own attack family and benign, while unseen families receive zero
 recall. The decisive result is not the diagonal macro-F1 but the unseen-family
