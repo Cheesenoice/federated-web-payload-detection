@@ -79,8 +79,12 @@ def run_stage_4_dedup():
     logger.info("Running OWASP CRS v4 Label Verification & Sandbox Check on unique candidates...")
     verified_labels = []
     binary_labels = []
-    for p, cur_lbl in zip(df_exact["sanitized_payload"], df_exact["label_multiclass"]):
-        v_mclass, v_bclass = verify_payload_label(p, cur_lbl)
+    for p, cur_lbl, source in zip(
+        df_exact["sanitized_payload"],
+        df_exact["label_multiclass"],
+        df_exact.get("source", pd.Series(index=df_exact.index, dtype=str)),
+    ):
+        v_mclass, v_bclass = verify_payload_label(p, cur_lbl, source=source)
         
         # Additional Sandbox check for pathtrav
         if v_mclass == "pathtrav":
@@ -146,7 +150,7 @@ def run_stage_4_dedup():
 
     # Report Data Balance
     print("\n" + "="*60)
-    print("📊 STAGE 4 POST-DEDUP DATA BALANCE REPORT")
+    print("STAGE 4 POST-DEDUP DATA BALANCE REPORT")
     print("="*60)
     print(df_deduped["label_multiclass"].value_counts())
     print("="*60 + "\n")

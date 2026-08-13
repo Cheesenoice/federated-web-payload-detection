@@ -11,6 +11,8 @@ import os
 import glob
 import json
 import logging
+import hashlib
+import re
 import urllib.parse
 import pandas as pd
 
@@ -24,6 +26,55 @@ INTERIM_DIR = os.path.join(DATA_DIR, "interim")
 os.makedirs(INTERIM_DIR, exist_ok=True)
 
 OUTPUT_PATH = os.path.join(INTERIM_DIR, "raw_unified.parquet")
+
+
+def _skip_duplicate_path(path: str) -> bool:
+    """Skip extracted/hash mirrors that duplicate the canonical source tree."""
+    parts = {p.lower() for p in os.path.normpath(path).split(os.sep)}
+    return "extracted" in parts or "hash" in parts
+
+
+def _file_digest(path: str) -> str:
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _binary_flag(value, default=0) -> int:
+    if pd.isna(value):
+        return default
+    text = str(value).strip().lower()
+    if text in {"1", "true", "yes", "attack", "malicious", "sqli", "xss", "pathtrav"}:
+        return 1
+    if text in {"0", "false", "no", "benign", "normal", "legitimate", "clean"}:
+        return 0
+    try:
+        return 1 if float(text) > 0 else 0
+    except (TypeError, ValueError):
+        return default
+
+
+def _label_from_named_columns(row: pd.Series, columns: list[str]) -> str | None:
+    """Decode explicit multi-label columns without treating arbitrary features as labels."""
+    for col in columns:
+        if col not in row.index:
+            continue
+        value = row[col]
+        if _binary_flag(value, default=0) != 1:
+            continue
+        name = col.lower()
+        if "sql" in name:
+            return "sqli"
+        if "xss" in name or "cross" in name:
+            return "xss"
+        if "path" in name or "travers" in name or "lfi" in name:
+            return "pathtrav"
+        if "normal" in name or "benign" in name:
+            return "benign"
+        return "other"
+    return None
 
 
 def safe_read_csv(filepath, **kwargs):
@@ -223,17 +274,38 @@ def ingest_src03():
     rows = []
     logger.info("Ingesting SRC_03 (ModSecurity Production WAF)...")
     
-    # 1. Audit Logs
+    # 1. Audit Logs.  A ModSecurity audit entry is not synonymous with SQLi:
+    # CRS also records bots, protocol violations, PHP injection, etc.  We only
+    # promote entries whose rule id/tags identify one of our three attack
+    # families; all other entries remain ``other`` and are excluded downstream.
     audit_logs = glob.glob(os.path.join(src_dir, "**", "modsec_audit.anon.log"), recursive=True)
-    for log_path in audit_logs[:10]: # Process daily logs
+    seen_files = set()
+    for log_path in audit_logs:
+        if _skip_duplicate_path(log_path):
+            continue
         try:
+            digest = _file_digest(log_path)
+            if digest in seen_files:
+                continue
+            seen_files.add(digest)
             with open(log_path, "r", encoding="utf-8", errors="ignore") as f:
                 content = f.read()
-            # Simple ModSec section splitter
-            entries = content.split("---")
+            # Split at each transaction's A section; ``---`` is not a
+            # transaction delimiter and would mix labels across requests.
+            entries = re.split(r"(?=--[0-9A-Za-z]+-A--)", content)
             for idx, entry in enumerate(entries):
                 if "A--" in entry or "B--" in entry:
                     lines = entry.splitlines()
+                    entry_lower = entry.lower()
+                    rule_ids = [int(x) for x in re.findall(r"\bid\s+[\"']?(9\d{5})", entry_lower)]
+                    if any(930000 <= r < 931000 for r in rule_ids) or any(token in entry_lower for token in ("web_attack/file_injection", "restricted_file_access", "path traversal", "attack-lfi")):
+                        entry_label = "pathtrav"
+                    elif any(941000 <= r < 942000 for r in rule_ids) or any(token in entry_lower for token in ("web_attack/xss", "attack-xss", "cross-site scripting")):
+                        entry_label = "xss"
+                    elif any(942000 <= r < 943000 for r in rule_ids) or any(token in entry_lower for token in ("web_attack/sqli", "attack-sqli", "sql injection")):
+                        entry_label = "sqli"
+                    else:
+                        entry_label = "other"
                     for line in lines:
                         if line.startswith("GET ") or line.startswith("POST "):
                             req_line = line.strip()
@@ -242,8 +314,8 @@ def ingest_src03():
                                 "source": "SRC_03",
                                 "raw_payload": req_line,
                                 "http_part": "url",
-                                "label_binary": 1,
-                                "label_multiclass": "sqli", # Provisional, CRS will re-scrub
+                                "label_binary": int(entry_label != "benign"),
+                                "label_multiclass": entry_label,
                                 "timestamp": "",
                                 "raw_file": os.path.basename(log_path)
                             })
@@ -253,6 +325,8 @@ def ingest_src03():
     # 2. JSON Files
     json_files = glob.glob(os.path.join(src_dir, "**", "*.json"), recursive=True)
     for json_file in json_files:
+        if _skip_duplicate_path(json_file):
+            continue
         try:
             with open(json_file, "r", encoding="utf-8", errors="ignore") as f:
                 data = json.load(f)
@@ -387,73 +461,102 @@ def ingest_src06():
         return []
 
     rows = []
-    logger.info("Ingesting SRC_06 (20 SQLi Collections)...")
-    
-    # 1. Process CSV files
+    logger.info("Ingesting SRC_06 (SQLi/XSS mixed collections with explicit labels)...")
+    seen_digests = set()
+    payload_columns = ["Input", "Sentence", "payload", "Payload", "Query", "Query_Text", "request"]
+    explicit_label_columns = ["SQLInjection", "XSS", "PathTraversal", "LFI", "Normal", "Benign", "CommandInjection"]
+
+    # 1. CSV files.  Feature-only tables (for example SQLI_Dataset.csv) are
+    # intentionally skipped: a numeric feature is not a payload string.
     csv_files = glob.glob(os.path.join(src_dir, "**", "*.csv"), recursive=True)
     for csv_file in csv_files:
+        if _skip_duplicate_path(csv_file):
+            continue
+        try:
+            digest = _file_digest(csv_file)
+            if digest in seen_digests:
+                continue
+            seen_digests.add(digest)
+        except OSError:
+            continue
         filename = os.path.basename(csv_file)
-        df = safe_read_csv(csv_file)
+        df = safe_read_csv(csv_file, low_memory=False)
         if df.empty:
             continue
-            
-        # Find payload column
-        p_col = None
-        for col in ["Input", "Sentence", "payload", "Query", "Query_Text", df.columns[0]]:
-            if col in df.columns:
-                p_col = col
-                break
-                
-        # Find label column
-        l_col = None
-        for col in ["Label", "label", "SQLInjection", "Class", "is_sqli"]:
-            if col in df.columns:
-                l_col = col
-                break
-                
-        for idx, row in df.iterrows():
-            p = str(row[p_col]).strip() if p_col else ""
-            c = 1
-            if l_col and pd.notna(row[l_col]):
-                try:
-                    c = int(row[l_col])
-                except ValueError:
-                    c = 1
-                    
-            if p and len(p) >= 2:
-                rows.append({
-                    "id": f"SRC_06_csv_{filename}_{idx}",
-                    "source": "SRC_06",
-                    "raw_payload": p,
-                    "http_part": "param",
-                    "label_binary": c,
-                    "label_multiclass": "sqli" if c == 1 else "benign",
-                    "timestamp": "",
-                    "raw_file": filename
-                })
+        p_col = next((col for col in payload_columns if col in df.columns), None)
+        if p_col is None:
+            logger.info("Skipping %s: no payload/text column", filename)
+            continue
 
-    # 2. Process TXT files (FuzzDB / Payload lists)
+        label_col = next((col for col in ["Label", "label", "Class", "is_sqli"] if col in df.columns), None)
+        for idx, row in df.iterrows():
+            value = row.get(p_col, "")
+            if pd.isna(value):
+                continue
+            p = str(value).strip()
+            if len(p) < 2 or p.lower() in {"nan", "none"}:
+                continue
+
+            mclass = _label_from_named_columns(row, explicit_label_columns)
+            if mclass is None and label_col is not None:
+                raw_label = str(row.get(label_col, "")).strip().lower()
+                if raw_label in {"1", "true", "attack", "malicious", "sqli", "sql injection"}:
+                    mclass = "sqli"
+                elif raw_label in {"0", "false", "normal", "benign", "clean", "legitimate"}:
+                    mclass = "benign"
+                elif "xss" in raw_label:
+                    mclass = "xss"
+                elif "path" in raw_label or "lfi" in raw_label:
+                    mclass = "pathtrav"
+                elif raw_label:
+                    mclass = "other"
+            if mclass is None:
+                # A text-bearing file with no usable label is not safe to
+                # infer as SQLi; retain it as other for audit visibility.
+                mclass = "other"
+            rows.append({
+                "id": f"SRC_06_csv_{filename}_{idx}",
+                "source": "SRC_06",
+                "raw_payload": p,
+                "http_part": "param",
+                "label_binary": int(mclass != "benign"),
+                "label_multiclass": mclass,
+                "timestamp": "",
+                "raw_file": filename
+            })
+
+    # 2. TXT payload lists.  File names are the only available supervision;
+    # benign lists must never be silently converted to SQLi.
+    benign_names = {"norm.txt", "norm_train.txt", "norm_val.txt", "norm_test.txt", "goodqueries.txt", "payload_benign.txt"}
     txt_files = glob.glob(os.path.join(src_dir, "**", "*.txt"), recursive=True)
     for txt_file in txt_files:
-        filename = os.path.basename(txt_file)
+        if _skip_duplicate_path(txt_file):
+            continue
         try:
+            digest = _file_digest(txt_file)
+            if digest in seen_digests:
+                continue
+            seen_digests.add(digest)
             with open(txt_file, "r", encoding="utf-8", errors="ignore") as f:
                 lines = f.readlines()
+            filename = os.path.basename(txt_file)
+            lower_name = filename.lower()
+            mclass = "benign" if lower_name in benign_names else ("sqli" if any(token in lower_name for token in ("sqli", "sql", "badquery", "payload")) else "other")
             for idx, line in enumerate(lines):
                 p = line.strip()
-                if p and len(p) >= 2:
+                if len(p) >= 2:
                     rows.append({
                         "id": f"SRC_06_txt_{filename}_{idx}",
                         "source": "SRC_06",
                         "raw_payload": p,
                         "http_part": "param",
-                        "label_binary": 1,
-                        "label_multiclass": "sqli",
+                        "label_binary": int(mclass != "benign"),
+                        "label_multiclass": mclass,
                         "timestamp": "",
                         "raw_file": filename
                     })
-        except Exception:
-            continue
+        except Exception as exc:
+            logger.warning("Could not read TXT %s: %s", txt_file, exc)
 
     logger.info(f"SRC_06 total extracted rows: {len(rows)}")
     return rows
@@ -479,7 +582,7 @@ def run_stage_1_ingest():
     
     # Print Data Balance Report per Class & Source
     print("\n" + "="*60)
-    print("📊 STAGE 1 RAW INGESTION DATA BALANCE REPORT")
+    print("STAGE 1 RAW INGESTION DATA BALANCE REPORT")
     print("="*60)
     print("Row counts per attack family (label_multiclass):")
     print(df_unified["label_multiclass"].value_counts())

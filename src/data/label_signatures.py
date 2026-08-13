@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 # OWASP CRS v4 Signature Regexes
 REGEX_XSS = re.compile(
-    r"(?i)(<script|javascript:|onerror\s*=|onload\s*=|onclick\s*=|onmouseover\s*=|eval\(|document\.cookie|<iframe|<img\s+src|alert\(|prompt\()",
+    r"(?i)(<script|javascript:|onerror\s*=|onload\s*=|onclick\s*=|onmouseover\s*=|eval\(|document\.cookie|<iframe|alert\(|prompt\()",
     re.IGNORECASE
 )
 
@@ -35,7 +35,10 @@ REGEX_BENIGN_NUMERIC_RANGE = re.compile(r"^\d{4,5}-\d{4,5}$")
 REGEX_BENIGN_SIMPLE_PARAM = re.compile(r"^[a-zA-Z0-9_\-\.\s]{1,30}$")
 
 
-def verify_payload_label(payload: str, current_label: str) -> tuple[str, int]:
+TRUSTED_EXPLICIT_SOURCES = {"SRC_01", "SRC_04", "SRC_05", "SRC_06"}
+
+
+def verify_payload_label(payload: str, current_label: str, source: str | None = None) -> tuple[str, int]:
     """
     Verifies payload label against OWASP CRS v4 regex engine and D19 mislabel scrubbing.
     Returns (verified_multiclass_label, verified_binary_label).
@@ -44,6 +47,21 @@ def verify_payload_label(payload: str, current_label: str) -> tuple[str, int]:
         return "benign", 0
 
     text = payload.strip()
+
+    # ``other`` is an intentional quarantine class (protocol violations,
+    # PHP-injection rules, command injection, feature-only records).  Never
+    # silently turn it into benign merely because no payload regex matches.
+    if current_label == "other":
+        return "other", 1
+
+    # Explicit dataset labels are stronger supervision than generic regexes.
+    # Regexes such as ``<img src`` previously converted ordinary HTML traffic
+    # into XSS, so trusted labels are retained after only the D19 scrub.
+    if source in TRUSTED_EXPLICIT_SOURCES and current_label in {"benign", "xss", "sqli", "pathtrav"}:
+        text = str(payload).strip()
+        if REGEX_BENIGN_NUMERIC_RANGE.match(text):
+            return "benign", 0
+        return current_label, int(current_label != "benign")
 
     # D19 Scrubbing: Check for benign numeric ranges or simple safe parameter strings
     if REGEX_BENIGN_NUMERIC_RANGE.match(text) or (REGEX_BENIGN_SIMPLE_PARAM.match(text) and not REGEX_XSS.search(text) and not REGEX_SQLI.search(text) and not REGEX_PATHTRAV.search(text)):
@@ -54,15 +72,17 @@ def verify_payload_label(payload: str, current_label: str) -> tuple[str, int]:
     has_sqli = bool(REGEX_SQLI.search(text))
     has_pathtrav = bool(REGEX_PATHTRAV.search(text))
 
-    if has_xss:
-        return "xss", 1
-    elif has_sqli:
-        return "sqli", 1
-    elif has_pathtrav:
-        return "pathtrav", 1
-
-    # Preserve current label if confirmed valid
-    if current_label in ["xss", "sqli", "pathtrav"]:
+    hits = [label for label, matched in (("xss", has_xss), ("sqli", has_sqli), ("pathtrav", has_pathtrav)) if matched]
+    if len(hits) == 1:
+        return hits[0], 1
+    if len(hits) > 1 and current_label in hits:
         return current_label, 1
+    if len(hits) > 1:
+        return "other", 1
+
+    # For inferred sources, an unverified attack hint is not a gold label.
+    # Quarantine it instead of manufacturing a benign example.
+    if current_label in {"xss", "sqli", "pathtrav"}:
+        return "other", 1
 
     return "benign", 0
