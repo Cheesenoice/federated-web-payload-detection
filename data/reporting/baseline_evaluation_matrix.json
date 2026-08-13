@@ -1,0 +1,158 @@
+{
+  "client_1": {
+    "LogisticRegression": {
+      "accuracy": 0.5865184155663655,
+      "macro_f1": 0.40769666100735713,
+      "recall_benign": 0.8674698795180723,
+      "recall_xss": 1.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 0.0
+    },
+    "XGBoost": {
+      "accuracy": 0.5983321751216122,
+      "macro_f1": 0.3400798589258872,
+      "recall_benign": 1.0,
+      "recall_xss": 0.9928571428571429,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 0.0
+    },
+    "CharCNN": {
+      "accuracy": 0.5969423210562891,
+      "macro_f1": 0.41016782422886144,
+      "recall_benign": 0.9578313253012049,
+      "recall_xss": 1.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 0.0
+    }
+  },
+  "client_2": {
+    "LogisticRegression": {
+      "accuracy": 0.5983321751216122,
+      "macro_f1": 0.42312378054625344,
+      "recall_benign": 0.9698795180722891,
+      "recall_xss": 1.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 0.0
+    },
+    "XGBoost": {
+      "accuracy": 0.5976372480889507,
+      "macro_f1": 0.33987646615664435,
+      "recall_benign": 1.0,
+      "recall_xss": 0.9914285714285714,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 0.0
+    },
+    "CharCNN": {
+      "accuracy": 0.5990271021542738,
+      "macro_f1": 0.40656221420806515,
+      "recall_benign": 0.9759036144578314,
+      "recall_xss": 1.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 0.0
+    }
+  },
+  "client_3": {
+    "LogisticRegression": {
+      "accuracy": 0.40027797081306465,
+      "macro_f1": 0.3648934323640383,
+      "recall_benign": 0.9337349397590361,
+      "recall_xss": 0.0,
+      "recall_sqli": 1.0,
+      "recall_pathtrav": 0.0
+    },
+    "XGBoost": {
+      "accuracy": 0.40514246004169563,
+      "macro_f1": 0.3168265688567127,
+      "recall_benign": 0.9819277108433735,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.997624703087886,
+      "recall_pathtrav": 0.0
+    },
+    "CharCNN": {
+      "accuracy": 0.3988881167477415,
+      "macro_f1": 0.29152755305986483,
+      "recall_benign": 0.9759036144578314,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.9786223277909739,
+      "recall_pathtrav": 0.0
+    }
+  },
+  "client_4": {
+    "LogisticRegression": {
+      "accuracy": 0.40375260597637247,
+      "macro_f1": 0.36922230241789966,
+      "recall_benign": 0.963855421686747,
+      "recall_xss": 0.0,
+      "recall_sqli": 1.0,
+      "recall_pathtrav": 0.0
+    },
+    "XGBoost": {
+      "accuracy": 0.4065323141070188,
+      "macro_f1": 0.31837676425053485,
+      "recall_benign": 0.9939759036144579,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.997624703087886,
+      "recall_pathtrav": 0.0
+    },
+    "CharCNN": {
+      "accuracy": 0.3988881167477415,
+      "macro_f1": 0.32452714359804824,
+      "recall_benign": 0.9698795180722891,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.9809976247030879,
+      "recall_pathtrav": 0.0
+    }
+  },
+  "client_5": {
+    "LogisticRegression": {
+      "accuracy": 0.21820708825573315,
+      "macro_f1": 0.2994218964181417,
+      "recall_benign": 0.9759036144578314,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 1.0
+    },
+    "XGBoost": {
+      "accuracy": 0.22098679638637944,
+      "macro_f1": 0.30712319339298005,
+      "recall_benign": 1.0,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 1.0
+    },
+    "CharCNN": {
+      "accuracy": 0.21959694232105628,
+      "macro_f1": 0.2466499314387701,
+      "recall_benign": 0.9879518072289156,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 1.0
+    }
+  },
+  "client_6": {
+    "LogisticRegression": {
+      "accuracy": 0.21820708825573315,
+      "macro_f1": 0.29730923694779116,
+      "recall_benign": 0.9759036144578314,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 1.0
+    },
+    "XGBoost": {
+      "accuracy": 0.22098679638637944,
+      "macro_f1": 0.30712319339298005,
+      "recall_benign": 1.0,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 1.0
+    },
+    "CharCNN": {
+      "accuracy": 0.22098679638637944,
+      "macro_f1": 0.25650448442312473,
+      "recall_benign": 1.0,
+      "recall_xss": 0.0,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 1.0
+    }
+  }
+}

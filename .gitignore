@@ -23,6 +23,9 @@ data/interim/*.parquet
 data/processed/*.parquet
 data/partitions/*.parquet
 data/splits/*.parquet
+data/features/*.npy
+data/export/**/*.parquet
+data/export/**/*.csv
 data/**/*.log
 data/**/*.csv
 data/**/*.jsonl

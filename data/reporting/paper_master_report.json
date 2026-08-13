@@ -1,0 +1,53 @@
+{
+  "project_name": "fedwebpayload",
+  "conference_target": "SCIN-2026",
+  "total_trainable_samples": 4014,
+  "in_domain_test_samples": 1439,
+  "csic2010_ood_samples": 4014,
+  "ood_benchmark_results": {
+    "FedAvg": {
+      "accuracy": 0.6415047334329845,
+      "macro_f1": 0.3789090330103618,
+      "recall_benign": 1.0,
+      "recall_xss": 0.9809358752166378,
+      "recall_sqli": 0.0014992503748125937,
+      "recall_pathtrav": 0.0,
+      "binary_waf_accuracy": 0.7538614848031888,
+      "binary_waf_recall": 0.5077229696063776,
+      "binary_waf_f1": 0.6734963648380701
+    },
+    "FedProx": {
+      "accuracy": 0.7376681614349776,
+      "macro_f1": 0.5365196318501679,
+      "recall_benign": 1.0,
+      "recall_xss": 0.9809358752166378,
+      "recall_sqli": 0.2908545727136432,
+      "recall_pathtrav": 0.0,
+      "binary_waf_accuracy": 0.7732934728450424,
+      "binary_waf_recall": 0.5465869456900847,
+      "binary_waf_f1": 0.7068298969072165
+    },
+    "FedLC": {
+      "accuracy": 0.6410064773293472,
+      "macro_f1": 0.37641331705065006,
+      "recall_benign": 1.0,
+      "recall_xss": 0.9809358752166378,
+      "recall_sqli": 0.0,
+      "recall_pathtrav": 0.0,
+      "binary_waf_accuracy": 0.7593423019431988,
+      "binary_waf_recall": 0.5186846038863976,
+      "binary_waf_f1": 0.6830708661417323
+    },
+    "FedPayload-DAFL": {
+      "accuracy": 0.7414050822122571,
+      "macro_f1": 0.5614305206624111,
+      "recall_benign": 1.0,
+      "recall_xss": 0.8942807625649913,
+      "recall_sqli": 0.3395802098950525,
+      "recall_pathtrav": 0.0,
+      "binary_waf_accuracy": 0.7414050822122571,
+      "binary_waf_recall": 0.4828101644245142,
+      "binary_waf_f1": 0.6512096774193549
+    }
+  }
+}

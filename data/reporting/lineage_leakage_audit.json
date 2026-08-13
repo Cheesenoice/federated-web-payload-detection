@@ -1,0 +1,6 @@
+{
+  "global_train_vs_test_overlap": 0,
+  "global_train_vs_val_overlap": 0,
+  "client_cross_leaks": 0,
+  "status": "ZERO_LEAKAGE_VERIFIED"
+}

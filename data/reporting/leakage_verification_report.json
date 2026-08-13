@@ -1,0 +1,38 @@
+{
+  "Client 1 vs Test": {
+    "3gram_overlap": 0.6050969878105954,
+    "5gram_overlap": 0.44249643794067106,
+    "max_cosine_sim": 1.0000000000000009,
+    "status": "FAILED"
+  },
+  "Client 2 vs Test": {
+    "3gram_overlap": 0.5998534133742845,
+    "5gram_overlap": 0.3532695145450644,
+    "max_cosine_sim": 1.0000000000000004,
+    "status": "FAILED"
+  },
+  "Client 3 vs Test": {
+    "3gram_overlap": 0.5782248564051542,
+    "5gram_overlap": 0.2699670231712808,
+    "max_cosine_sim": 1.0000000000000016,
+    "status": "FAILED"
+  },
+  "Client 4 vs Test": {
+    "3gram_overlap": 0.5632766717925273,
+    "5gram_overlap": 0.3387921258570872,
+    "max_cosine_sim": 1.000000000000002,
+    "status": "FAILED"
+  },
+  "Client 5 vs Test": {
+    "3gram_overlap": 0.49259719331229435,
+    "5gram_overlap": 0.2596448023199804,
+    "max_cosine_sim": 1.0000000000000018,
+    "status": "FAILED"
+  },
+  "Client 6 vs Test": {
+    "3gram_overlap": 0.4813830071221877,
+    "5gram_overlap": 0.24927968435898398,
+    "max_cosine_sim": 1.0000000000000018,
+    "status": "FAILED"
+  }
+}
