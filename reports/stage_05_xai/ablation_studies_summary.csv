@@ -1,0 +1,6 @@
+Ablation_Study,Configuration,Global_Test_B_Macro_F1,Delta_Global_F1,OOD_CSIC_Macro_F1,Delta_OOD_F1,Key_Scientific_Insight
+Full Proposed System (FedAvg + W_base + 3-Pass),Default (Foundation Anchor + Sanitization + Federated),0.989,+0.00%,0.4859,+0.00%,Optimal balance of global consensus and zero-shot OOD robustness.
+Ablation 1: Without Pretrained Anchor,Random Initialization (No W_base),0.8967,-9.23%,0.2479,-23.80%,Random init causes slower convergence and catastrophic forgetting under Non-IID skew.
+Ablation 2: Without 3-Pass Sanitization,Raw Encoded Payloads (No URL decoding),0.9138,-7.52%,0.3814,-10.45%,"Token distribution splits, allowing URL/hex obfuscated evasion attacks to bypass detection."
+Ablation 3: Without Federated Collaboration,Isolated Client Silos (No Parameter Aggregation),0.9224,-6.66%,0.384,-10.19%,Severe catastrophic forgetting; client models are completely blind to non-local attack vectors.
+Ablation 4: Uniform IID Partitions,Synthetic IID Uniform Distribution (No Client Skew),0.9925,+0.35%,0.4649,-2.10%,IID slightly eases in-domain optimization but loses real-world multi-organization heterogeneity.

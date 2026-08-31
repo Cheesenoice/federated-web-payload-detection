@@ -18,40 +18,39 @@ ENV/
 .agents/
 
 # Heavy Data Files (Ignored from Git tracking to keep repo lightweight)
-data/raw/SRC_*
-data/interim/*.parquet
-data/processed/*.parquet
-data/partitions/*.parquet
-data/splits/*.parquet
-data/features/*.npy
-data/export/**/*.parquet
-data/export/**/*.csv
-data/**/*.log
-data/**/*.csv
-data/**/*.jsonl
-data/**/*.txt
-data/**/*.zip
-data/**/*.tar.gz
-data/**/*.7z
+data/raw/
+data/interim/
+data/processed/
+data/features/
+data/partitions/
+data/splits/
+data/export/
+*.parquet
+*.npz
+*.joblib
+*.npy
+*.csv.gz
+archive/
+archive-short-rp/
+doc1.txt
+doc2.txt
+pdf_text.txt
 
-# Exceptions: Preserve folder structure via .gitkeep
+# Preserve folder structure via .gitkeep
 !data/raw/.gitkeep
 !data/interim/.gitkeep
 !data/processed/.gitkeep
 !data/external/.gitkeep
-!data/.gitkeep
 !models/.gitkeep
 !logs/.gitkeep
 !outputs/.gitkeep
 
-# Model Checkpoints & Logs
-models/*
-!models/.gitkeep
-checkpoints/
-outputs/*
-!outputs/.gitkeep
-logs/*
-!logs/.gitkeep
+# Model Checkpoints & Large Binary Weights (Ignored from Git tracking)
+models/**/*.pt
+models/**/*.pth
+models/**/*.bin
+models/**/*.onnx
+models/**/*.safetensors
 *.pt
 *.pth
 *.bin

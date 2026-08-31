@@ -1,0 +1,133 @@
+{
+    "model": "Linear SVM (Lexical + TF-IDF)",
+    "features": 21193,
+    "pool_a_val": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "report": {
+            "benign": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 883.0
+            },
+            "pathtrav": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 12.0
+            },
+            "sqli": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 408.0
+            },
+            "xss": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 23.0
+            },
+            "accuracy": 1.0,
+            "macro avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 1326.0
+            },
+            "weighted avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 1326.0
+            }
+        }
+    },
+    "pool_a_test": {
+        "accuracy": 0.9985130111524163,
+        "macro_f1": 0.9869061757719715,
+        "report": {
+            "benign": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 879.0
+            },
+            "pathtrav": {
+                "precision": 0.9047619047619048,
+                "recall": 1.0,
+                "f1-score": 0.95,
+                "support": 19.0
+            },
+            "sqli": {
+                "precision": 1.0,
+                "recall": 0.995260663507109,
+                "f1-score": 0.997624703087886,
+                "support": 422.0
+            },
+            "xss": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 25.0
+            },
+            "accuracy": 0.9985130111524163,
+            "macro avg": {
+                "precision": 0.9761904761904762,
+                "recall": 0.9988151658767772,
+                "f1-score": 0.9869061757719715,
+                "support": 1345.0
+            },
+            "weighted avg": {
+                "precision": 0.9986546291379005,
+                "recall": 0.9985130111524163,
+                "f1-score": 0.9985484198535969,
+                "support": 1345.0
+            }
+        }
+    },
+    "ood_test": {
+        "accuracy": 0.10944011596303678,
+        "macro_f1": 0.08997640733322024,
+        "report": {
+            "benign": {
+                "precision": 1.0,
+                "recall": 0.004759933774834437,
+                "f1-score": 0.009474768280123584,
+                "support": 4832.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 67.0
+            },
+            "sqli": {
+                "precision": 0.08209538702111024,
+                "recall": 0.7291666666666666,
+                "f1-score": 0.14757554462403374,
+                "support": 144.0
+            },
+            "xss": {
+                "precision": 0.11287645245435143,
+                "recall": 1.0,
+                "f1-score": 0.20285531642872362,
+                "support": 476.0
+            },
+            "accuracy": 0.10944011596303678,
+            "macro avg": {
+                "precision": 0.29874295986886545,
+                "recall": 0.43348165011037526,
+                "f1-score": 0.08997640733322024,
+                "support": 5519.0
+            },
+            "weighted avg": {
+                "precision": 0.8873982473454087,
+                "recall": 0.10944011596303678,
+                "f1-score": 0.02964161793359131,
+                "support": 5519.0
+            }
+        }
+    }
+}

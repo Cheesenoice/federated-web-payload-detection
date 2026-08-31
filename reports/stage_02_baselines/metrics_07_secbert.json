@@ -1,0 +1,132 @@
+{
+    "model": "SecBERT (HuggingFace jackaduma/SecBERT)",
+    "pool_a_val": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "report": {
+            "benign": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 883.0
+            },
+            "pathtrav": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 12.0
+            },
+            "sqli": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 408.0
+            },
+            "xss": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 23.0
+            },
+            "accuracy": 1.0,
+            "macro avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 1326.0
+            },
+            "weighted avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 1326.0
+            }
+        }
+    },
+    "pool_a_test": {
+        "accuracy": 0.9985130111524163,
+        "macro_f1": 0.9869061757719715,
+        "report": {
+            "benign": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 879.0
+            },
+            "pathtrav": {
+                "precision": 0.9047619047619048,
+                "recall": 1.0,
+                "f1-score": 0.95,
+                "support": 19.0
+            },
+            "sqli": {
+                "precision": 1.0,
+                "recall": 0.995260663507109,
+                "f1-score": 0.997624703087886,
+                "support": 422.0
+            },
+            "xss": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 25.0
+            },
+            "accuracy": 0.9985130111524163,
+            "macro avg": {
+                "precision": 0.9761904761904762,
+                "recall": 0.9988151658767772,
+                "f1-score": 0.9869061757719715,
+                "support": 1345.0
+            },
+            "weighted avg": {
+                "precision": 0.9986546291379005,
+                "recall": 0.9985130111524163,
+                "f1-score": 0.9985484198535969,
+                "support": 1345.0
+            }
+        }
+    },
+    "ood_test": {
+        "accuracy": 0.10563507881862656,
+        "macro_f1": 0.11010157912508292,
+        "report": {
+            "benign": {
+                "precision": 1.0,
+                "recall": 0.0014486754966887417,
+                "f1-score": 0.002893159743748708,
+                "support": 4832.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 67.0
+            },
+            "sqli": {
+                "precision": 0.07922077922077922,
+                "recall": 0.8472222222222222,
+                "f1-score": 0.14489311163895488,
+                "support": 144.0
+            },
+            "xss": {
+                "precision": 0.17282070803197563,
+                "recall": 0.9537815126050421,
+                "f1-score": 0.2926200451176281,
+                "support": 476.0
+            },
+            "accuracy": 0.10563507881862656,
+            "macro avg": {
+                "precision": 0.31301037181318875,
+                "recall": 0.45061310258098825,
+                "f1-score": 0.11010157912508292,
+                "support": 5519.0
+            },
+            "weighted avg": {
+                "precision": 0.8924932866879892,
+                "recall": 0.10563507881862656,
+                "f1-score": 0.03155127694035047,
+                "support": 5519.0
+            }
+        }
+    }
+}

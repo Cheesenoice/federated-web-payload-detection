@@ -1,0 +1,7 @@
+Model,Architecture,In_Silo_Local_F1,Avg_Cross_Silo_F1,Global_Test_B_Acc,Global_Test_B_Macro_F1,OOD_CSIC_Acc,OOD_CSIC_Macro_F1,OOD_Benign_F1,OOD_XSS_F1,OOD_SQLi_F1,OOD_PathTrav_F1
+W_local_charcnn_client_1,CharCNN,0.9989,0.998,0.9998,0.9984,0.8797,0.4824,0.9359,0.825,0.1687,0.0
+W_local_charcnn_client_2,CharCNN,0.9972,0.9969,0.9995,0.9974,0.518,0.4267,0.6784,0.8239,0.2046,0.0
+W_local_charcnn_client_3,CharCNN,0.9999,0.9983,0.9998,0.9988,0.9844,0.5075,0.9925,0.825,0.2124,0.0
+W_local_charcnn_client_4,CharCNN,0.9996,0.997,0.9998,0.9984,0.9793,0.4941,0.9898,0.825,0.1617,0.0
+W_local_charcnn_client_5,CharCNN,0.9993,0.9984,0.9996,0.9978,0.3882,0.3975,0.5527,0.825,0.2084,0.004
+W_local_charcnn_client_6,CharCNN,0.9969,0.9989,0.9997,0.9987,0.6275,0.4551,0.768,0.825,0.2211,0.0062

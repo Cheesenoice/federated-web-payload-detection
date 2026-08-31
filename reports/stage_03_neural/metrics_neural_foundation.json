@@ -1,0 +1,562 @@
+{
+    "W_base (Foundation)": {
+        "global_test_b_report": {
+            "benign": {
+                "precision": 0.9996995455150512,
+                "recall": 0.9971434966180972,
+                "f1-score": 0.9984198851378042,
+                "support": 263609.0
+            },
+            "pathtrav": {
+                "precision": 0.9362790697674419,
+                "recall": 0.9930932412432166,
+                "f1-score": 0.963849652860905,
+                "support": 2027.0
+            },
+            "sqli": {
+                "precision": 0.9518060652887773,
+                "recall": 0.9926470588235294,
+                "f1-score": 0.9717976530914111,
+                "support": 9928.0
+            },
+            "xss": {
+                "precision": 0.9982990840252491,
+                "recall": 0.9998738074806925,
+                "f1-score": 0.9990858252476152,
+                "support": 79244.0
+            },
+            "accuracy": 0.9976043381208992,
+            "macro avg": {
+                "precision": 0.9715209411491299,
+                "recall": 0.9956894010413839,
+                "f1-score": 0.9832882540844339,
+                "support": 354808.0
+            },
+            "weighted avg": {
+                "precision": 0.9976843205304828,
+                "recall": 0.9976043381208992,
+                "f1-score": 0.9976261949658803,
+                "support": 354808.0
+            }
+        },
+        "ood_csic_report": {
+            "benign": {
+                "precision": 0.9944341047160866,
+                "recall": 0.9435725709716114,
+                "f1-score": 0.9683359264135136,
+                "support": 120048.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 194.0
+            },
+            "sqli": {
+                "precision": 0.4639175257731959,
+                "recall": 0.46875,
+                "f1-score": 0.46632124352331605,
+                "support": 384.0
+            },
+            "xss": {
+                "precision": 0.27191235059760954,
+                "recall": 0.726063829787234,
+                "f1-score": 0.39565217391304347,
+                "support": 1504.0
+            },
+            "accuracy": 0.9379022353230164,
+            "macro avg": {
+                "precision": 0.432565995271723,
+                "recall": 0.5345966001897113,
+                "f1-score": 0.45757733596246825,
+                "support": 122130.0
+            },
+            "weighted avg": {
+                "precision": 0.9822887571288994,
+                "recall": 0.9379022353230164,
+                "f1-score": 0.9581668674458991,
+                "support": 122130.0
+            }
+        }
+    },
+    "W_local_client_1": {
+        "global_test_b_report": {
+            "benign": {
+                "precision": 0.9991696650982563,
+                "recall": 0.9997003137222173,
+                "f1-score": 0.9994349189734488,
+                "support": 263609.0
+            },
+            "pathtrav": {
+                "precision": 0.9940623453735774,
+                "recall": 0.9911198815984213,
+                "f1-score": 0.9925889328063241,
+                "support": 2027.0
+            },
+            "sqli": {
+                "precision": 0.9941735663906777,
+                "recall": 0.9796535052377116,
+                "f1-score": 0.9868601288620568,
+                "support": 9928.0
+            },
+            "xss": {
+                "precision": 0.9997476499905369,
+                "recall": 0.9998864267326233,
+                "f1-score": 0.999817033545953,
+                "support": 79244.0
+            },
+            "accuracy": 0.9991319248720435,
+            "macro avg": {
+                "precision": 0.9967883067132621,
+                "recall": 0.9925900318227434,
+                "f1-score": 0.9946752535469456,
+                "support": 354808.0
+            },
+            "weighted avg": {
+                "precision": 0.9991297788210391,
+                "recall": 0.9991319248720435,
+                "f1-score": 0.9991292915834148,
+                "support": 354808.0
+            }
+        },
+        "ood_csic_report": {
+            "benign": {
+                "precision": 0.9886386453383308,
+                "recall": 0.9843562574970012,
+                "f1-score": 0.9864928039536515,
+                "support": 120048.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 194.0
+            },
+            "sqli": {
+                "precision": 1.0,
+                "recall": 0.17708333333333334,
+                "f1-score": 0.3008849557522124,
+                "support": 384.0
+            },
+            "xss": {
+                "precision": 0.9060773480662984,
+                "recall": 0.43617021276595747,
+                "f1-score": 0.5888689407540395,
+                "support": 1504.0
+            },
+            "accuracy": 0.9735036436583968,
+            "macro avg": {
+                "precision": 0.7236789983511572,
+                "recall": 0.399402450899073,
+                "f1-score": 0.4690616751149758,
+                "support": 122130.0
+            },
+            "weighted avg": {
+                "precision": 0.9860872220344522,
+                "recall": 0.9735036436583968,
+                "f1-score": 0.9778734695728393,
+                "support": 122130.0
+            }
+        }
+    },
+    "W_local_client_2": {
+        "global_test_b_report": {
+            "benign": {
+                "precision": 0.9986471584643544,
+                "recall": 0.9997079007165917,
+                "f1-score": 0.9991772480653955,
+                "support": 263609.0
+            },
+            "pathtrav": {
+                "precision": 0.9969864389753893,
+                "recall": 0.9792797237296498,
+                "f1-score": 0.9880537580886013,
+                "support": 2027.0
+            },
+            "sqli": {
+                "precision": 0.9968889349787411,
+                "recall": 0.9682715551974215,
+                "f1-score": 0.9823718767564253,
+                "support": 9928.0
+            },
+            "xss": {
+                "precision": 0.9993693636879611,
+                "recall": 0.9998864267326233,
+                "f1-score": 0.999627828346864,
+                "support": 79244.0
+            },
+            "accuracy": 0.9987514373971275,
+            "macro avg": {
+                "precision": 0.9979729740266114,
+                "recall": 0.9867864015940715,
+                "f1-score": 0.9923076778143216,
+                "support": 354808.0
+            },
+            "weighted avg": {
+                "precision": 0.9987497731448863,
+                "recall": 0.9987514373971275,
+                "f1-score": 0.9987440975819967,
+                "support": 354808.0
+            }
+        },
+        "ood_csic_report": {
+            "benign": {
+                "precision": 0.9932190400026657,
+                "recall": 0.9931693989071039,
+                "f1-score": 0.9931942188346037,
+                "support": 120048.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 194.0
+            },
+            "sqli": {
+                "precision": 1.0,
+                "recall": 0.4635416666666667,
+                "f1-score": 0.6334519572953736,
+                "support": 384.0
+            },
+            "xss": {
+                "precision": 0.4942408376963351,
+                "recall": 0.6276595744680851,
+                "f1-score": 0.5530169888693615,
+                "support": 1504.0
+            },
+            "accuracy": 0.9854253664128387,
+            "macro avg": {
+                "precision": 0.6218649694247502,
+                "recall": 0.521092660010464,
+                "f1-score": 0.5449157912498347,
+                "support": 122130.0
+            },
+            "weighted avg": {
+                "precision": 0.9855178705816368,
+                "recall": 0.9854253664128387,
+                "f1-score": 0.9850647890405098,
+                "support": 122130.0
+            }
+        }
+    },
+    "W_local_client_3": {
+        "global_test_b_report": {
+            "benign": {
+                "precision": 0.9997267873608797,
+                "recall": 0.9994309754219317,
+                "f1-score": 0.9995788595060136,
+                "support": 263609.0
+            },
+            "pathtrav": {
+                "precision": 0.9940623453735774,
+                "recall": 0.9911198815984213,
+                "f1-score": 0.9925889328063241,
+                "support": 2027.0
+            },
+            "sqli": {
+                "precision": 0.9865511057979677,
+                "recall": 0.9974818694601129,
+                "f1-score": 0.9919863768406291,
+                "support": 9928.0
+            },
+            "xss": {
+                "precision": 0.9998863894569416,
+                "recall": 0.9995583261824239,
+                "f1-score": 0.9997223309058323,
+                "support": 79244.0
+            },
+            "accuracy": 0.999357398931253,
+            "macro avg": {
+                "precision": 0.9950566569973416,
+                "recall": 0.9968977631657225,
+                "f1-score": 0.9959691250146998,
+                "support": 354808.0
+            },
+            "weighted avg": {
+                "precision": 0.9993613996526982,
+                "recall": 0.999357398931253,
+                "f1-score": 0.9993585220228819,
+                "support": 354808.0
+            }
+        },
+        "ood_csic_report": {
+            "benign": {
+                "precision": 0.9845428296438884,
+                "recall": 0.852109156337465,
+                "f1-score": 0.9135513601371748,
+                "support": 120048.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 194.0
+            },
+            "sqli": {
+                "precision": 0.4009009009009009,
+                "recall": 0.4635416666666667,
+                "f1-score": 0.42995169082125606,
+                "support": 384.0
+            },
+            "xss": {
+                "precision": 1.0,
+                "recall": 0.17553191489361702,
+                "f1-score": 0.2986425339366516,
+                "support": 1504.0
+            },
+            "accuracy": 0.8412019978711209,
+            "macro avg": {
+                "precision": 0.5963609326361974,
+                "recall": 0.3727956844744372,
+                "f1-score": 0.41053639622377064,
+                "support": 122130.0
+            },
+            "weighted avg": {
+                "precision": 0.9813341812743426,
+                "recall": 0.8412019978711209,
+                "f1-score": 0.9030072341117141,
+                "support": 122130.0
+            }
+        }
+    },
+    "W_local_client_4": {
+        "global_test_b_report": {
+            "benign": {
+                "precision": 0.9997230232205191,
+                "recall": 0.9995371933431711,
+                "f1-score": 0.9996300996454648,
+                "support": 263609.0
+            },
+            "pathtrav": {
+                "precision": 0.995004995004995,
+                "recall": 0.9827331031080414,
+                "f1-score": 0.9888309754281459,
+                "support": 2027.0
+            },
+            "sqli": {
+                "precision": 0.9897989798979898,
+                "recall": 0.9968775181305399,
+                "f1-score": 0.99332563858082,
+                "support": 9928.0
+            },
+            "xss": {
+                "precision": 0.9997854808383914,
+                "recall": 0.9998233304729696,
+                "f1-score": 0.9998044052974617,
+                "support": 79244.0
+            },
+            "accuracy": 0.999430678000496,
+            "macro avg": {
+                "precision": 0.9960781197404738,
+                "recall": 0.9947427862636805,
+                "f1-score": 0.9953977797379732,
+                "support": 354808.0
+            },
+            "weighted avg": {
+                "precision": 0.9994323309198148,
+                "recall": 0.999430678000496,
+                "f1-score": 0.9994309275942387,
+                "support": 354808.0
+            }
+        },
+        "ood_csic_report": {
+            "benign": {
+                "precision": 0.9894717461167649,
+                "recall": 0.9848560575769693,
+                "f1-score": 0.9871585064457952,
+                "support": 120048.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 194.0
+            },
+            "sqli": {
+                "precision": 0.5341614906832298,
+                "recall": 0.4479166666666667,
+                "f1-score": 0.48725212464589235,
+                "support": 384.0
+            },
+            "xss": {
+                "precision": 0.8556430446194225,
+                "recall": 0.43351063829787234,
+                "f1-score": 0.5754633715798765,
+                "support": 1504.0
+            },
+            "accuracy": 0.9748137230819618,
+            "macro avg": {
+                "precision": 0.5948190703548544,
+                "recall": 0.46657084063537707,
+                "f1-score": 0.5124685006678911,
+                "support": 122130.0
+            },
+            "weighted avg": {
+                "precision": 0.9848203498678079,
+                "recall": 0.9748137230819618,
+                "f1-score": 0.9789487112791695,
+                "support": 122130.0
+            }
+        }
+    },
+    "W_local_client_5": {
+        "global_test_b_report": {
+            "benign": {
+                "precision": 0.9988890995260663,
+                "recall": 0.9994233884275575,
+                "f1-score": 0.9991561725503879,
+                "support": 263609.0
+            },
+            "pathtrav": {
+                "precision": 0.9815444390480816,
+                "recall": 0.9970399605328071,
+                "f1-score": 0.9892315222711698,
+                "support": 2027.0
+            },
+            "sqli": {
+                "precision": 0.996277145811789,
+                "recall": 0.9703867848509267,
+                "f1-score": 0.9831615470966425,
+                "support": 9928.0
+            },
+            "xss": {
+                "precision": 0.9988024555963141,
+                "recall": 0.9998738074806925,
+                "f1-score": 0.9993378443997402,
+                "support": 79244.0
+            },
+            "accuracy": 0.9986978873080652,
+            "macro avg": {
+                "precision": 0.9938782849955627,
+                "recall": 0.9916809853229959,
+                "f1-score": 0.992721771579485,
+                "support": 354808.0
+            },
+            "weighted avg": {
+                "precision": 0.9986975730812468,
+                "recall": 0.9986978873080652,
+                "f1-score": 0.9986924978204194,
+                "support": 354808.0
+            }
+        },
+        "ood_csic_report": {
+            "benign": {
+                "precision": 0.9744095566880377,
+                "recall": 0.2962481673997068,
+                "f1-score": 0.4543584633270732,
+                "support": 120048.0
+            },
+            "pathtrav": {
+                "precision": 0.00014262283391570991,
+                "recall": 0.061855670103092786,
+                "f1-score": 0.000284589479675568,
+                "support": 194.0
+            },
+            "sqli": {
+                "precision": 1.0,
+                "recall": 0.1875,
+                "f1-score": 0.3157894736842105,
+                "support": 384.0
+            },
+            "xss": {
+                "precision": 0.70042194092827,
+                "recall": 0.6622340425531915,
+                "f1-score": 0.6807928913192071,
+                "support": 1504.0
+            },
+            "accuracy": 0.3000409399819864,
+            "macro avg": {
+                "precision": 0.6687435301125558,
+                "recall": 0.3019594700139978,
+                "f1-score": 0.3628063544525416,
+                "support": 122130.0
+            },
+            "weighted avg": {
+                "precision": 0.9695683348012073,
+                "recall": 0.3000409399819864,
+                "f1-score": 0.4559899752909717,
+                "support": 122130.0
+            }
+        }
+    },
+    "W_local_client_6": {
+        "global_test_b_report": {
+            "benign": {
+                "precision": 0.999302202990667,
+                "recall": 0.9995978892981651,
+                "f1-score": 0.9994500242747907,
+                "support": 263609.0
+            },
+            "pathtrav": {
+                "precision": 0.9872860635696822,
+                "recall": 0.9960532807104094,
+                "f1-score": 0.9916502946954814,
+                "support": 2027.0
+            },
+            "sqli": {
+                "precision": 0.9926955463122654,
+                "recall": 0.9855962933118453,
+                "f1-score": 0.9891331817033105,
+                "support": 9928.0
+            },
+            "xss": {
+                "precision": 0.9998106514851235,
+                "recall": 0.9994952299227702,
+                "f1-score": 0.9996529158226211,
+                "support": 79244.0
+            },
+            "accuracy": 0.9991629275551848,
+            "macro avg": {
+                "precision": 0.9947736160894345,
+                "recall": 0.9951856733107974,
+                "f1-score": 0.994971604124051,
+                "support": 354808.0
+            },
+            "weighted avg": {
+                "precision": 0.9991622509331743,
+                "recall": 0.9991629275551848,
+                "f1-score": 0.9991621003072064,
+                "support": 354808.0
+            }
+        },
+        "ood_csic_report": {
+            "benign": {
+                "precision": 0.9879182485895752,
+                "recall": 0.9277122484339597,
+                "f1-score": 0.9568691468339204,
+                "support": 120048.0
+            },
+            "pathtrav": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 194.0
+            },
+            "sqli": {
+                "precision": 0.8640776699029126,
+                "recall": 0.4635416666666667,
+                "f1-score": 0.6033898305084746,
+                "support": 384.0
+            },
+            "xss": {
+                "precision": 1.0,
+                "recall": 0.3537234042553192,
+                "f1-score": 0.5225933202357563,
+                "support": 1504.0
+            },
+            "accuracy": 0.9177106362073201,
+            "macro avg": {
+                "precision": 0.712998979623122,
+                "recall": 0.4362443298389864,
+                "f1-score": 0.5207130743945378,
+                "support": 122130.0
+            },
+            "weighted avg": {
+                "precision": 0.9861083741253095,
+                "recall": 0.9177106362073201,
+                "f1-score": 0.948889784554723,
+                "support": 122130.0
+            }
+        }
+    }
+}

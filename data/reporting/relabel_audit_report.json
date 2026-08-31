@@ -1,9 +1,0 @@
-{
-  "total_cleaned_rows": 3742706,
-  "clean_4class_distribution": {
-    "benign": 2694564,
-    "xss": 675052,
-    "pathtrav": 201652,
-    "sqli": 171438
-  }
-}

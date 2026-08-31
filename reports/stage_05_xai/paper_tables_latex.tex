@@ -1,0 +1,41 @@
+% ==========================================================================
+% FEDERATED WEB PAYLOAD DETECTION - PUBLICATION TABLES (IEEE/ACM FORMAT)
+% Generated automatically by KMUTNB Automated Research Pipeline
+% ==========================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Federated Learning Algorithms Master Benchmark across 6 Clients, Global Network, and External OOD Benchmark}
+\label{tab:federated_benchmark}
+\begin{tabular}{llllll}
+\toprule
+\textbf{Method} & \textbf{Avg Local Test F1} & \textbf{Global Test B Acc} & \textbf{Global Test B Macro F1} & \textbf{OOD CSIC Acc} & \textbf{OOD CSIC Macro F1} \\
+\midrule
+Foundation W\_base & 0.9689 & 0.9976 & 0.9833 & 0.9380 & 0.4567 \\
+Centralized Oracle & 0.9703 & 0.9980 & 0.9866 & 0.2109 & 0.3506 \\
+Standard FedAvg & 0.9793 & 0.9985 & 0.9890 & 0.9549 & 0.4859 \\
+FedProx (mu=0.01) & 0.9745 & 0.9983 & 0.9873 & 0.8446 & 0.5151 \\
+FedAvgM (beta=0.9) & 0.9794 & 0.9983 & 0.9901 & 0.9648 & 0.4432 \\
+DAFL (Ours, lambda=0.02) & 0.9714 & 0.9978 & 0.9844 & 0.9459 & 0.4777 \\
+Hybrid Ensemble (W\_base+W\_fed) & 0.9777 & 0.9984 & 0.9888 & 0.9564 & 0.5029 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Ablation Studies Demonstrating the Contribution of Foundation Anchor, Sanitization, and Federated Collaboration}
+\label{tab:ablation_studies}
+\begin{tabular}{lllll}
+\toprule
+\textbf{Ablation Study} & \textbf{Global Test B Macro F1} & \textbf{Delta Global F1} & \textbf{OOD CSIC Macro F1} & \textbf{Delta OOD F1} \\
+\midrule
+Full Proposed System (FedAvg + W\_base + 3-Pass) & 0.9890 & +0.00\% & 0.4859 & +0.00\% \\
+Ablation 1: Without Pretrained Anchor & 0.8967 & -9.23\% & 0.2479 & -23.80\% \\
+Ablation 2: Without 3-Pass Sanitization & 0.9138 & -7.52\% & 0.3814 & -10.45\% \\
+Ablation 3: Without Federated Collaboration & 0.9224 & -6.66\% & 0.3840 & -10.19\% \\
+Ablation 4: Uniform IID Partitions & 0.9925 & +0.35\% & 0.4649 & -2.10\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+

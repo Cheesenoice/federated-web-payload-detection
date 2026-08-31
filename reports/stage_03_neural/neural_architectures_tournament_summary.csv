@@ -1,0 +1,10 @@
+Architecture,Model_Type,Dataset,Samples,Accuracy,Macro_Precision,Macro_Recall,Macro_F1,Benign_F1,XSS_F1,SQLi_F1,PathTrav_F1,Latency_ms_per_sample
+CharCNN (Multi-Scale 1D),char_cnn,In-Domain Test A,62615,0.9982,0.9849,0.9991,0.9918,0.9988,0.9996,0.9701,0.9986,0.05
+CharCNN (Multi-Scale 1D),char_cnn,Global Network Test B,354808,0.998,0.9833,0.9987,0.9907,0.9987,0.9997,0.9682,0.9963,0.0446
+CharCNN (Multi-Scale 1D),char_cnn,External OOD (CSIC 2010),122130,0.4125,0.5154,0.4016,0.3821,0.5793,0.825,0.1239,0.0,0.0477
+Bi-LSTM with Attention,bilstm,In-Domain Test A,62615,0.9978,0.9827,0.9971,0.9897,0.9986,0.9995,0.9662,0.9944,0.0556
+Bi-LSTM with Attention,bilstm,Global Network Test B,354808,0.9979,0.9799,0.9974,0.9884,0.9986,0.9997,0.9661,0.9892,0.0557
+Bi-LSTM with Attention,bilstm,External OOD (CSIC 2010),122130,0.0101,0.3249,0.5101,0.2738,0.0,0.7276,0.3644,0.0032,0.0605
+Transformer Encoder,transformer,In-Domain Test A,62615,0.9972,0.9657,0.9951,0.9799,0.9982,0.9988,0.9671,0.9557,0.0963
+Transformer Encoder,transformer,Global Network Test B,354808,0.9976,0.9715,0.9957,0.9833,0.9984,0.9991,0.9718,0.9638,0.0805
+Transformer Encoder,transformer,External OOD (CSIC 2010),122130,0.9379,0.4326,0.5346,0.4576,0.9683,0.3957,0.4663,0.0,0.0804

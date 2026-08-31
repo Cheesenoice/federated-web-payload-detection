@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>KMUTNB Comprehensive Explainable AI (XAI) Report: SHAP, LIME, & Attention</title>
+<style>
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0b0f19; color: #f1f5f9; padding: 30px; line-height: 1.6; }
+h1 { color: #38bdf8; border-bottom: 2px solid #38bdf8; padding-bottom: 8px; }
+h2 { color: #a855f7; margin-top: 25px; }
+.card { background: #1e293b; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.4); }
+.badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-right: 10px; }
+.badge-xss { background: #ef4444; color: white; }
+.badge-sqli { background: #f59e0b; color: white; }
+.badge-pathtrav { background: #8b5cf6; color: white; }
+.badge-benign { background: #10b981; color: white; }
+.code-box { background: #020617; padding: 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 15px; margin: 10px 0; word-break: break-all; border-left: 4px solid #38bdf8; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #334155; }
+th { background: #0f172a; color: #94a3b8; font-size: 13px; text-transform: uppercase; }
+.pos-weight { color: #f87171; font-weight: bold; }
+.neg-weight { color: #60a5fa; }
+</style>
+</head>
+<body>
+<h1>🛡️ Comprehensive Explainable AI (XAI) Master Report</h1>
+<p><strong>Model:</strong> Character-Level Federated Transformer (FedAvgM / W_base) &nbsp;|&nbsp; <strong>Techniques:</strong> SHAP (Shapley Attributions), LIME (Local Surrogates), and Multi-Head Self-Attention</p>
+
+<h2>1. Tri-Factor Explainability Breakdown by Attack Category</h2>
+
+<div class="card">
+    <div>
+        <span class="badge badge-xss">XSS</span>
+        <strong>Predicted Label:</strong> <span style="color:#38bdf8; font-size:16px;">XSS</span> &nbsp;|&nbsp;
+        <strong>Model Confidence:</strong> 91.25% &nbsp;|&nbsp;
+        <strong>Baseline E[f(x)]:</strong> 26.96%
+    </div>
+    <div class="code-box">&lt;script&gt;alert(document.cookie)&lt;/script&gt;</div>
+    <table>
+        <tr>
+            <th>Token / Substring</th>
+            <th>SHAP Attribution ($\phi_i$)</th>
+            <th>Interpretation</th>
+        </tr>
+
+        <tr>
+            <td><code>)&lt;/</code></td>
+            <td class="neg-weight">-0.0052</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>cookie</code></td>
+            <td class="pos-weight">+0.0036</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>document</code></td>
+            <td class="neg-weight">-0.0029</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>.</code></td>
+            <td class="pos-weight">+0.0026</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>(</code></td>
+            <td class="neg-weight">-0.0023</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>alert</code></td>
+            <td class="pos-weight">+0.0017</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>&gt;</code></td>
+            <td class="pos-weight">+0.0013</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>script</code></td>
+            <td class="pos-weight">+0.0008</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="card">
+    <div>
+        <span class="badge badge-xss">XSS_Img</span>
+        <strong>Predicted Label:</strong> <span style="color:#38bdf8; font-size:16px;">XSS</span> &nbsp;|&nbsp;
+        <strong>Model Confidence:</strong> 81.92% &nbsp;|&nbsp;
+        <strong>Baseline E[f(x)]:</strong> 26.96%
+    </div>
+    <div class="code-box">&lt;img src=x onerror=alert(&#x27;XSS&#x27;)&gt;</div>
+    <table>
+        <tr>
+            <th>Token / Substring</th>
+            <th>SHAP Attribution ($\phi_i$)</th>
+            <th>Interpretation</th>
+        </tr>
+
+        <tr>
+            <td><code>alert</code></td>
+            <td class="pos-weight">+0.4274</td>
+            <td>Strong Attack Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>&#x27;)&gt;</code></td>
+            <td class="pos-weight">+0.0877</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>&lt;</code></td>
+            <td class="pos-weight">+0.0875</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>(&#x27;</code></td>
+            <td class="neg-weight">-0.0727</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code> </code></td>
+            <td class="neg-weight">-0.0705</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code> </code></td>
+            <td class="neg-weight">-0.0690</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>XSS</code></td>
+            <td class="pos-weight">+0.0523</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>src</code></td>
+            <td class="pos-weight">+0.0345</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="card">
+    <div>
+        <span class="badge badge-sqli">SQL_Injection</span>
+        <strong>Predicted Label:</strong> <span style="color:#38bdf8; font-size:16px;">SQLI</span> &nbsp;|&nbsp;
+        <strong>Model Confidence:</strong> 94.44% &nbsp;|&nbsp;
+        <strong>Baseline E[f(x)]:</strong> 24.65%
+    </div>
+    <div class="code-box">&#x27; UNION SELECT 1, null, password FROM users--</div>
+    <table>
+        <tr>
+            <th>Token / Substring</th>
+            <th>SHAP Attribution ($\phi_i$)</th>
+            <th>Interpretation</th>
+        </tr>
+
+        <tr>
+            <td><code>--</code></td>
+            <td class="pos-weight">+0.0009</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>SELECT</code></td>
+            <td class="pos-weight">+0.0006</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>&#x27; </code></td>
+            <td class="pos-weight">+0.0005</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>users</code></td>
+            <td class="neg-weight">-0.0003</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>FROM</code></td>
+            <td class="neg-weight">-0.0002</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code> </code></td>
+            <td class="neg-weight">-0.0002</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code> </code></td>
+            <td class="neg-weight">-0.0002</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>, </code></td>
+            <td class="neg-weight">-0.0002</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="card">
+    <div>
+        <span class="badge badge-sqli">SQL_AuthBypass</span>
+        <strong>Predicted Label:</strong> <span style="color:#38bdf8; font-size:16px;">SQLI</span> &nbsp;|&nbsp;
+        <strong>Model Confidence:</strong> 94.56% &nbsp;|&nbsp;
+        <strong>Baseline E[f(x)]:</strong> 24.65%
+    </div>
+    <div class="code-box">admin&#x27; OR &#x27;1&#x27;=&#x27;1&#x27; #</div>
+    <table>
+        <tr>
+            <th>Token / Substring</th>
+            <th>SHAP Attribution ($\phi_i$)</th>
+            <th>Interpretation</th>
+        </tr>
+
+        <tr>
+            <td><code>&#x27; #</code></td>
+            <td class="pos-weight">+0.0093</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>&#x27; </code></td>
+            <td class="pos-weight">+0.0033</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code> &#x27;</code></td>
+            <td class="pos-weight">+0.0023</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>OR</code></td>
+            <td class="pos-weight">+0.0017</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>&#x27;=&#x27;</code></td>
+            <td class="neg-weight">-0.0006</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>admin</code></td>
+            <td class="neg-weight">-0.0002</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>1</code></td>
+            <td class="pos-weight">+0.0001</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>1</code></td>
+            <td class="pos-weight">+0.0000</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="card">
+    <div>
+        <span class="badge badge-pathtrav">Path_Traversal</span>
+        <strong>Predicted Label:</strong> <span style="color:#38bdf8; font-size:16px;">PATHTRAV</span> &nbsp;|&nbsp;
+        <strong>Model Confidence:</strong> 83.09% &nbsp;|&nbsp;
+        <strong>Baseline E[f(x)]:</strong> 20.85%
+    </div>
+    <div class="code-box">../../../../etc/passwd%00</div>
+    <table>
+        <tr>
+            <th>Token / Substring</th>
+            <th>SHAP Attribution ($\phi_i$)</th>
+            <th>Interpretation</th>
+        </tr>
+
+        <tr>
+            <td><code>../../../../</code></td>
+            <td class="pos-weight">+0.5250</td>
+            <td>Strong Attack Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>%</code></td>
+            <td class="neg-weight">-0.0211</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>etc</code></td>
+            <td class="neg-weight">-0.0098</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>/</code></td>
+            <td class="neg-weight">-0.0049</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>00</code></td>
+            <td class="pos-weight">+0.0043</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>passwd</code></td>
+            <td class="neg-weight">-0.0035</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="card">
+    <div>
+        <span class="badge badge-pathtrav">Path_Windows</span>
+        <strong>Predicted Label:</strong> <span style="color:#38bdf8; font-size:16px;">PATHTRAV</span> &nbsp;|&nbsp;
+        <strong>Model Confidence:</strong> 84.13% &nbsp;|&nbsp;
+        <strong>Baseline E[f(x)]:</strong> 20.85%
+    </div>
+    <div class="code-box">..\..\..\windows\system32\cmd.exe</div>
+    <table>
+        <tr>
+            <th>Token / Substring</th>
+            <th>SHAP Attribution ($\phi_i$)</th>
+            <th>Interpretation</th>
+        </tr>
+
+        <tr>
+            <td><code>..\..\..\</code></td>
+            <td class="pos-weight">+0.8235</td>
+            <td>Strong Attack Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>\</code></td>
+            <td class="pos-weight">+0.0276</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>\</code></td>
+            <td class="pos-weight">+0.0244</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>.</code></td>
+            <td class="pos-weight">+0.0229</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>system32</code></td>
+            <td class="neg-weight">-0.0131</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>exe</code></td>
+            <td class="neg-weight">-0.0123</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>cmd</code></td>
+            <td class="neg-weight">-0.0025</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>windows</code></td>
+            <td class="neg-weight">-0.0016</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="card">
+    <div>
+        <span class="badge badge-benign">Benign_Query</span>
+        <strong>Predicted Label:</strong> <span style="color:#38bdf8; font-size:16px;">BENIGN</span> &nbsp;|&nbsp;
+        <strong>Model Confidence:</strong> 96.52% &nbsp;|&nbsp;
+        <strong>Baseline E[f(x)]:</strong> 27.54%
+    </div>
+    <div class="code-box">/products/search?category=electronics&amp;order=desc</div>
+    <table>
+        <tr>
+            <th>Token / Substring</th>
+            <th>SHAP Attribution ($\phi_i$)</th>
+            <th>Interpretation</th>
+        </tr>
+
+        <tr>
+            <td><code>/</code></td>
+            <td class="pos-weight">+0.0001</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>search?category</code></td>
+            <td class="neg-weight">-0.0001</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>products</code></td>
+            <td class="pos-weight">+0.0001</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>=</code></td>
+            <td class="pos-weight">+0.0000</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>=</code></td>
+            <td class="pos-weight">+0.0000</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>/</code></td>
+            <td class="neg-weight">-0.0000</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+        <tr>
+            <td><code>electronics&amp;order</code></td>
+            <td class="pos-weight">+0.0000</td>
+            <td>Moderate Indicator</td>
+        </tr>
+
+        <tr>
+            <td><code>desc</code></td>
+            <td class="neg-weight">-0.0000</td>
+            <td>Neutral / Benign Syntax</td>
+        </tr>
+
+    </table>
+</div>
+
+<h2>2. Visual Artifacts Summary</h2>
+<ul>
+    <li><strong>SHAP Waterfall Attributions:</strong> <code>reports/stage_05_xai/figures/shap_waterfall_attributions.png</code></li>
+    <li><strong>LIME Local Explanations:</strong> <code>reports/stage_05_xai/figures/lime_local_explanations.png</code></li>
+    <li><strong>Multi-Head Self-Attention Maps:</strong> <code>reports/stage_05_xai/figures/attention_heatmaps_*.png</code></li>
+    <li><strong>Token Saliency Maps:</strong> <code>reports/stage_05_xai/figures/token_saliency_highlighted.png</code></li>
+</ul>
+</body>
+</html>

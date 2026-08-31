@@ -1,0 +1,6 @@
+{
+    "champion_architecture": "Transformer Encoder",
+    "model_type": "transformer",
+    "source_checkpoint": "C:\\Users\\huynh\\Desktop\\fedwebpayload\\models\\stage_03_neural\\model_transformer.pt",
+    "composite_score": 0.7730038868356476
+}

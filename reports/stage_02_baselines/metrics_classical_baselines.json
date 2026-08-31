@@ -1,0 +1,670 @@
+{
+    "Logistic Regression": {
+        "In-Domain Test A": {
+            "summary": {
+                "Model": "Logistic Regression",
+                "Dataset": "In-Domain Test A",
+                "Samples": 62615,
+                "Accuracy": 0.9969,
+                "Macro_Precision": 0.976,
+                "Macro_Recall": 0.9979,
+                "Macro_F1": 0.9865,
+                "Benign_F1": 0.998,
+                "XSS_F1": 0.9989,
+                "SQLi_F1": 0.956,
+                "PathTrav_F1": 0.993,
+                "Latency_ms_per_sample": 0.0005
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9997842502696872,
+                    "recall": 0.9961306964746346,
+                    "f1-score": 0.997954129428233,
+                    "support": 46520.0
+                },
+                "xss": {
+                    "precision": 0.9984994640943194,
+                    "recall": 0.9992134429746157,
+                    "f1-score": 0.998856325947105,
+                    "support": 13985.0
+                },
+                "sqli": {
+                    "precision": 0.9167103195390257,
+                    "recall": 0.9988584474885844,
+                    "f1-score": 0.9560229445506692,
+                    "support": 1752.0
+                },
+                "pathtrav": {
+                    "precision": 0.9889196675900277,
+                    "recall": 0.9972067039106145,
+                    "f1-score": 0.9930458970792768,
+                    "support": 358.0
+                },
+                "accuracy": 0.9969017008703984,
+                "macro avg": {
+                    "precision": 0.9759784253732651,
+                    "recall": 0.9978523227121123,
+                    "f1-score": 0.986469824251321,
+                    "support": 62615.0
+                },
+                "weighted avg": {
+                    "precision": 0.9971107250456681,
+                    "recall": 0.9969017008703984,
+                    "f1-score": 0.9969543152500012,
+                    "support": 62615.0
+                }
+            }
+        },
+        "Global Network Test B": {
+            "summary": {
+                "Model": "Logistic Regression",
+                "Dataset": "Global Network Test B",
+                "Samples": 354808,
+                "Accuracy": 0.9969,
+                "Macro_Precision": 0.9728,
+                "Macro_Recall": 0.9972,
+                "Macro_F1": 0.9845,
+                "Benign_F1": 0.9979,
+                "XSS_F1": 0.9992,
+                "SQLi_F1": 0.955,
+                "PathTrav_F1": 0.9858,
+                "Latency_ms_per_sample": 0.0003
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9998362541031676,
+                    "recall": 0.9960168279535221,
+                    "f1-score": 0.9979228864466916,
+                    "support": 263609.0
+                },
+                "xss": {
+                    "precision": 0.998776997465737,
+                    "recall": 0.9996466609459391,
+                    "f1-score": 0.9992116399780521,
+                    "support": 79244.0
+                },
+                "sqli": {
+                    "precision": 0.9152354570637119,
+                    "recall": 0.9983883964544722,
+                    "f1-score": 0.9550052991617689,
+                    "support": 9928.0
+                },
+                "pathtrav": {
+                    "precision": 0.9772176442074648,
+                    "recall": 0.994573260976813,
+                    "f1-score": 0.9858190709046455,
+                    "support": 2027.0
+                },
+                "accuracy": 0.9968856395571689,
+                "macro avg": {
+                    "precision": 0.9727665882100203,
+                    "recall": 0.9971562865826866,
+                    "f1-score": 0.9844897241227896,
+                    "support": 354808.0
+                },
+                "weighted avg": {
+                    "precision": 0.9971032143514065,
+                    "recall": 0.9968856395571689,
+                    "f1-score": 0.996940681265779,
+                    "support": 354808.0
+                }
+            }
+        },
+        "External OOD (CSIC 2010)": {
+            "summary": {
+                "Model": "Logistic Regression",
+                "Dataset": "External OOD (CSIC 2010)",
+                "Samples": 122130,
+                "Accuracy": 0.4852,
+                "Macro_Precision": 0.5304,
+                "Macro_Recall": 0.3204,
+                "Macro_F1": 0.2705,
+                "Benign_F1": 0.654,
+                "XSS_F1": 0.1966,
+                "SQLi_F1": 0.2312,
+                "PathTrav_F1": 0.0,
+                "Latency_ms_per_sample": 0.0005
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9823682628731717,
+                    "recall": 0.49010395841663335,
+                    "f1-score": 0.6539513171057019,
+                    "support": 120048.0
+                },
+                "xss": {
+                    "precision": 1.0,
+                    "recall": 0.10904255319148937,
+                    "f1-score": 0.19664268585131894,
+                    "support": 1504.0
+                },
+                "sqli": {
+                    "precision": 0.1392136025504782,
+                    "recall": 0.6822916666666666,
+                    "f1-score": 0.23124448367166814,
+                    "support": 384.0
+                },
+                "pathtrav": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 194.0
+                },
+                "accuracy": 0.4852370424957013,
+                "macro avg": {
+                    "precision": 0.5303954663559125,
+                    "recall": 0.3203595445686973,
+                    "f1-score": 0.27045962165717224,
+                    "support": 122130.0
+                },
+                "weighted avg": {
+                    "precision": 0.9783738904837296,
+                    "recall": 0.4852370424957013,
+                    "f1-score": 0.6459518234435077,
+                    "support": 122130.0
+                }
+            }
+        }
+    },
+    "Linear SVM (Calibrated)": {
+        "In-Domain Test A": {
+            "summary": {
+                "Model": "Linear SVM (Calibrated)",
+                "Dataset": "In-Domain Test A",
+                "Samples": 62615,
+                "Accuracy": 0.998,
+                "Macro_Precision": 0.9843,
+                "Macro_Recall": 0.9992,
+                "Macro_F1": 0.9915,
+                "Benign_F1": 0.9987,
+                "XSS_F1": 0.9995,
+                "SQLi_F1": 0.968,
+                "PathTrav_F1": 1.0,
+                "Latency_ms_per_sample": 0.0015
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9999138005344367,
+                    "recall": 0.9974204643164231,
+                    "f1-score": 0.9986655761697731,
+                    "support": 46520.0
+                },
+                "xss": {
+                    "precision": 0.9994994637111191,
+                    "recall": 0.9994994637111191,
+                    "f1-score": 0.9994994637111191,
+                    "support": 13985.0
+                },
+                "sqli": {
+                    "precision": 0.9379014989293362,
+                    "recall": 1.0,
+                    "f1-score": 0.9679558011049724,
+                    "support": 1752.0
+                },
+                "pathtrav": {
+                    "precision": 1.0,
+                    "recall": 1.0,
+                    "f1-score": 1.0,
+                    "support": 358.0
+                },
+                "accuracy": 0.9979717320130959,
+                "macro avg": {
+                    "precision": 0.984328690793723,
+                    "recall": 0.9992299820068855,
+                    "f1-score": 0.9915302102464661,
+                    "support": 62615.0
+                },
+                "weighted avg": {
+                    "precision": 0.998086615459334,
+                    "recall": 0.9979717320130959,
+                    "f1-score": 0.9980001783431088,
+                    "support": 62615.0
+                }
+            }
+        },
+        "Global Network Test B": {
+            "summary": {
+                "Model": "Linear SVM (Calibrated)",
+                "Dataset": "Global Network Test B",
+                "Samples": 354808,
+                "Accuracy": 0.9982,
+                "Macro_Precision": 0.9849,
+                "Macro_Recall": 0.9989,
+                "Macro_F1": 0.9917,
+                "Benign_F1": 0.9988,
+                "XSS_F1": 0.9997,
+                "SQLi_F1": 0.9723,
+                "PathTrav_F1": 0.9961,
+                "Latency_ms_per_sample": 0.0023
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9999315677821118,
+                    "recall": 0.9977504561680367,
+                    "f1-score": 0.9988398212831083,
+                    "support": 263609.0
+                },
+                "xss": {
+                    "precision": 0.9996340786352395,
+                    "recall": 0.9997349957094543,
+                    "f1-score": 0.9996845346254795,
+                    "support": 79244.0
+                },
+                "sqli": {
+                    "precision": 0.9464949928469242,
+                    "recall": 0.999597099113618,
+                    "f1-score": 0.9723215597903296,
+                    "support": 9928.0
+                },
+                "pathtrav": {
+                    "precision": 0.9936180657830143,
+                    "recall": 0.9985199802664035,
+                    "f1-score": 0.9960629921259843,
+                    "support": 2027.0
+                },
+                "accuracy": 0.9982497576153864,
+                "macro avg": {
+                    "precision": 0.9849196762618224,
+                    "recall": 0.9989006328143782,
+                    "f1-score": 0.9917272269562254,
+                    "support": 354808.0
+                },
+                "weighted avg": {
+                    "precision": 0.9983338303735316,
+                    "recall": 0.9982497576153864,
+                    "f1-score": 0.9982706022443635,
+                    "support": 354808.0
+                }
+            }
+        },
+        "External OOD (CSIC 2010)": {
+            "summary": {
+                "Model": "Linear SVM (Calibrated)",
+                "Dataset": "External OOD (CSIC 2010)",
+                "Samples": 122130,
+                "Accuracy": 0.443,
+                "Macro_Precision": 0.535,
+                "Macro_Recall": 0.6242,
+                "Macro_F1": 0.389,
+                "Benign_F1": 0.6104,
+                "XSS_F1": 0.7101,
+                "SQLi_F1": 0.2301,
+                "PathTrav_F1": 0.0054,
+                "Latency_ms_per_sample": 0.0022
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9936111841858017,
+                    "recall": 0.4404738104758097,
+                    "f1-score": 0.6103678736740041,
+                    "support": 120048.0
+                },
+                "xss": {
+                    "precision": 1.0,
+                    "recall": 0.550531914893617,
+                    "f1-score": 0.7101200686106347,
+                    "support": 1504.0
+                },
+                "sqli": {
+                    "precision": 0.14359637774902975,
+                    "recall": 0.578125,
+                    "f1-score": 0.23005181347150258,
+                    "support": 384.0
+                },
+                "pathtrav": {
+                    "precision": 0.0027052210766779885,
+                    "recall": 0.9278350515463918,
+                    "f1-score": 0.005394713181082539,
+                    "support": 194.0
+                },
+                "accuracy": 0.443036109064112,
+                "macro avg": {
+                    "precision": 0.5349781957528774,
+                    "recall": 0.6242414442289546,
+                    "f1-score": 0.38898361723430597,
+                    "support": 122130.0
+                },
+                "weighted avg": {
+                    "precision": 0.9894432265707167,
+                    "recall": 0.443036109064112,
+                    "f1-score": 0.6094395279844217,
+                    "support": 122130.0
+                }
+            }
+        }
+    },
+    "Random Forest": {
+        "In-Domain Test A": {
+            "summary": {
+                "Model": "Random Forest",
+                "Dataset": "In-Domain Test A",
+                "Samples": 62615,
+                "Accuracy": 0.9966,
+                "Macro_Precision": 0.9736,
+                "Macro_Recall": 0.9986,
+                "Macro_F1": 0.9854,
+                "Benign_F1": 0.9977,
+                "XSS_F1": 0.9996,
+                "SQLi_F1": 0.9442,
+                "PathTrav_F1": 1.0,
+                "Latency_ms_per_sample": 0.0062
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9998273070696169,
+                    "recall": 0.9956362854686156,
+                    "f1-score": 0.9977273951209005,
+                    "support": 46520.0
+                },
+                "xss": {
+                    "precision": 1.0,
+                    "recall": 0.9992849481587415,
+                    "f1-score": 0.9996423462088698,
+                    "support": 13985.0
+                },
+                "sqli": {
+                    "precision": 0.8947368421052632,
+                    "recall": 0.9994292237442922,
+                    "f1-score": 0.9441898085737396,
+                    "support": 1752.0
+                },
+                "pathtrav": {
+                    "precision": 1.0,
+                    "recall": 1.0,
+                    "f1-score": 1.0,
+                    "support": 358.0
+                },
+                "accuracy": 0.9965822885889962,
+                "macro avg": {
+                    "precision": 0.97364103729372,
+                    "recall": 0.9985876143429123,
+                    "f1-score": 0.9853898874758775,
+                    "support": 62615.0
+                },
+                "weighted avg": {
+                    "precision": 0.9969263798170885,
+                    "recall": 0.9965822885889962,
+                    "f1-score": 0.9966700818873516,
+                    "support": 62615.0
+                }
+            }
+        },
+        "Global Network Test B": {
+            "summary": {
+                "Model": "Random Forest",
+                "Dataset": "Global Network Test B",
+                "Samples": 354808,
+                "Accuracy": 0.9964,
+                "Macro_Precision": 0.9712,
+                "Macro_Recall": 0.9983,
+                "Macro_F1": 0.9839,
+                "Benign_F1": 0.9976,
+                "XSS_F1": 0.9997,
+                "SQLi_F1": 0.9409,
+                "PathTrav_F1": 0.9975,
+                "Latency_ms_per_sample": 0.007
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9998437553590006,
+                    "recall": 0.9952922699907818,
+                    "f1-score": 0.9975628210441467,
+                    "support": 263609.0
+                },
+                "xss": {
+                    "precision": 0.9999368718751578,
+                    "recall": 0.9994321336631165,
+                    "f1-score": 0.999684439058871,
+                    "support": 79244.0
+                },
+                "sqli": {
+                    "precision": 0.8889087977065042,
+                    "recall": 0.9993956486704271,
+                    "f1-score": 0.9409198672356567,
+                    "support": 9928.0
+                },
+                "pathtrav": {
+                    "precision": 0.9960649286768323,
+                    "recall": 0.9990133201776024,
+                    "f1-score": 0.9975369458128078,
+                    "support": 2027.0
+                },
+                "accuracy": 0.9963529570922866,
+                "macro avg": {
+                    "precision": 0.9711885884043737,
+                    "recall": 0.998283343125482,
+                    "f1-score": 0.9839260182878706,
+                    "support": 354808.0
+                },
+                "weighted avg": {
+                    "precision": 0.9967388563261366,
+                    "recall": 0.9963529570922866,
+                    "f1-score": 0.9964515772262343,
+                    "support": 354808.0
+                }
+            }
+        },
+        "External OOD (CSIC 2010)": {
+            "summary": {
+                "Model": "Random Forest",
+                "Dataset": "External OOD (CSIC 2010)",
+                "Samples": 122130,
+                "Accuracy": 0.9863,
+                "Macro_Precision": 0.6937,
+                "Macro_Recall": 0.7265,
+                "Macro_F1": 0.6773,
+                "Benign_F1": 0.9935,
+                "XSS_F1": 0.7881,
+                "SQLi_F1": 0.267,
+                "PathTrav_F1": 0.6605,
+                "Latency_ms_per_sample": 0.0117
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.99462311725612,
+                    "recall": 0.9923363987738238,
+                    "f1-score": 0.9934784421649571,
+                    "support": 120048.0
+                },
+                "xss": {
+                    "precision": 1.0,
+                    "recall": 0.6502659574468085,
+                    "f1-score": 0.7880741337630943,
+                    "support": 1504.0
+                },
+                "sqli": {
+                    "precision": 0.17832167832167833,
+                    "recall": 0.53125,
+                    "f1-score": 0.2670157068062827,
+                    "support": 384.0
+                },
+                "pathtrav": {
+                    "precision": 0.6016949152542372,
+                    "recall": 0.7319587628865979,
+                    "f1-score": 0.6604651162790698,
+                    "support": 194.0
+                },
+                "accuracy": 0.9862605420453615,
+                "macro avg": {
+                    "precision": 0.6936599277080089,
+                    "recall": 0.7264527797768076,
+                    "f1-score": 0.677258349753351,
+                    "support": 122130.0
+                },
+                "weighted avg": {
+                    "precision": 0.9914985697076684,
+                    "recall": 0.9862605420453615,
+                    "f1-score": 0.9881358207334006,
+                    "support": 122130.0
+                }
+            }
+        }
+    },
+    "XGBoost (GPU)": {
+        "In-Domain Test A": {
+            "summary": {
+                "Model": "XGBoost (GPU)",
+                "Dataset": "In-Domain Test A",
+                "Samples": 62615,
+                "Accuracy": 0.8015,
+                "Macro_Precision": 0.5946,
+                "Macro_Recall": 0.8695,
+                "Macro_F1": 0.5983,
+                "Benign_F1": 0.8576,
+                "XSS_F1": 0.9776,
+                "SQLi_F1": 0.4937,
+                "PathTrav_F1": 0.0645,
+                "Latency_ms_per_sample": 0.0012
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9972073407044341,
+                    "recall": 0.7522355975924334,
+                    "f1-score": 0.8575699652011959,
+                    "support": 46520.0
+                },
+                "xss": {
+                    "precision": 0.9994024945851072,
+                    "recall": 0.9568108687879872,
+                    "f1-score": 0.9776430189230657,
+                    "support": 13985.0
+                },
+                "sqli": {
+                    "precision": 0.3483568075117371,
+                    "recall": 0.8470319634703196,
+                    "f1-score": 0.49367930805056554,
+                    "support": 1752.0
+                },
+                "pathtrav": {
+                    "precision": 0.033421105934778206,
+                    "recall": 0.9217877094972067,
+                    "f1-score": 0.06450351837372947,
+                    "support": 358.0
+                },
+                "accuracy": 0.8015491495648007,
+                "macro avg": {
+                    "precision": 0.5945969371840141,
+                    "recall": 0.8694665348369868,
+                    "f1-score": 0.5983489526371392,
+                    "support": 62615.0
+                },
+                "weighted avg": {
+                    "precision": 0.9740320252180502,
+                    "recall": 0.8015491495648007,
+                    "f1-score": 0.8696719764925511,
+                    "support": 62615.0
+                }
+            }
+        },
+        "Global Network Test B": {
+            "summary": {
+                "Model": "XGBoost (GPU)",
+                "Dataset": "Global Network Test B",
+                "Samples": 354808,
+                "Accuracy": 0.8008,
+                "Macro_Precision": 0.5935,
+                "Macro_Recall": 0.8674,
+                "Macro_F1": 0.5972,
+                "Benign_F1": 0.8568,
+                "XSS_F1": 0.9776,
+                "SQLi_F1": 0.4907,
+                "PathTrav_F1": 0.0638,
+                "Latency_ms_per_sample": 0.0007
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9969691019580004,
+                    "recall": 0.7511845194966787,
+                    "f1-score": 0.8567985634857106,
+                    "support": 263609.0
+                },
+                "xss": {
+                    "precision": 0.9995121243687285,
+                    "recall": 0.9565645348543739,
+                    "f1-score": 0.9775668512989818,
+                    "support": 79244.0
+                },
+                "sqli": {
+                    "precision": 0.3445426047306925,
+                    "recall": 0.8524375503626108,
+                    "f1-score": 0.4907367139253718,
+                    "support": 9928.0
+                },
+                "pathtrav": {
+                    "precision": 0.03303755489827014,
+                    "recall": 0.9092254563394179,
+                    "f1-score": 0.06375838926174497,
+                    "support": 2027.0
+                },
+                "accuracy": 0.8007908502626773,
+                "macro avg": {
+                    "precision": 0.5935153464889229,
+                    "recall": 0.8673530152632704,
+                    "f1-score": 0.5972151294929523,
+                    "support": 354808.0
+                },
+                "weighted avg": {
+                    "precision": 0.973774415698257,
+                    "recall": 0.8007908502626773,
+                    "f1-score": 0.8689978592284441,
+                    "support": 354808.0
+                }
+            }
+        },
+        "External OOD (CSIC 2010)": {
+            "summary": {
+                "Model": "XGBoost (GPU)",
+                "Dataset": "External OOD (CSIC 2010)",
+                "Samples": 122130,
+                "Accuracy": 0.1931,
+                "Macro_Precision": 0.4998,
+                "Macro_Recall": 0.4668,
+                "Macro_F1": 0.3022,
+                "Benign_F1": 0.3108,
+                "XSS_F1": 0.87,
+                "SQLi_F1": 0.0264,
+                "PathTrav_F1": 0.0018,
+                "Latency_ms_per_sample": 0.0011
+            },
+            "classification_report": {
+                "benign": {
+                    "precision": 0.9847070329865742,
+                    "recall": 0.18450952952152472,
+                    "f1-score": 0.31078559301819814,
+                    "support": 120048.0
+                },
+                "xss": {
+                    "precision": 1.0,
+                    "recall": 0.7699468085106383,
+                    "f1-score": 0.8700225394440271,
+                    "support": 1504.0
+                },
+                "sqli": {
+                    "precision": 0.013535031847133758,
+                    "recall": 0.53125,
+                    "f1-score": 0.026397515527950312,
+                    "support": 384.0
+                },
+                "pathtrav": {
+                    "precision": 0.0008872263386327122,
+                    "recall": 0.38144329896907214,
+                    "f1-score": 0.0017703349282296652,
+                    "support": 194.0
+                },
+                "accuracy": 0.19312208302628348,
+                "macro avg": {
+                    "precision": 0.49978232279308515,
+                    "recall": 0.4667874092503088,
+                    "f1-score": 0.3022439957296013,
+                    "support": 122130.0
+                },
+                "weighted avg": {
+                    "precision": 0.9802790425784922,
+                    "recall": 0.19312208302628348,
+                    "f1-score": 0.3162874220986758,
+                    "support": 122130.0
+                }
+            }
+        }
+    }
+}
