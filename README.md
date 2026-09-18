@@ -11,6 +11,15 @@
 
 > **Official Research Repository & Engineering Monograph** for *Diversity-Aware Federated Learning with Dual-Anchor Regularization (DAFL)* in privacy-preserving Web Application Firewalls (WAF). Designed to detect evasive **Cross-Site Scripting (XSS)**, **SQL Injection (SQLi)**, and **Path Traversal** attacks across cross-sector enterprise silos without raw HTTP log centralization.
 
+> [!IMPORTANT]
+> ### 🌟 Key Research Artifacts & Live Working Documents
+> 
+> | 🖥️ **Conference Presentation Slide Deck (20 Slides)** | 📄 **Comprehensive Master Technical Report** |
+> | :---: | :---: |
+> | [![Google Slides](https://img.shields.io/badge/Slides-KMUTNB__Conference__Presentation__20Slides.pptx-D93728?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white)](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | [![Google Docs](https://img.shields.io/badge/Report-TRI__Technical__Report.docx-1A73E8?style=for-the-badge&logo=microsoftword&logoColor=white)](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) |
+> | 📊 [**Open `KMUTNB_Conference_Presentation_20Slides.pptx` (Google Drive)**](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | 📝 [**Open `TRI_Technical_Report.docx` (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) |
+> | *Official 20-slide visual conference deck detailing bio-cyber equivalence, 100% audited data funnel, CDKT transfer, and benchmark findings.* | *Exhaustive academic research monograph (50+ pages, Level-4 verification, 32 publication figures, and full regulatory & mathematical proofs).* |
+
 <p align="center">
   <img src="reports/report_figures_master/Fig03_bio_cyber_equivalence_schematic.png" width="920" alt="Bio-Cyber Equivalence Schematic" />
   <br/>
@@ -566,6 +575,14 @@ flowchart TD
 
     Track1 --> Track2
 ```
+
+### 📚 Roadmap Deliverables & Live Working Drafts:
+* **Track 1 Deliverables (SCIN 2026 Conference Track)**:
+  - 📄 **Conference Paper Fragment**: Springer Nature `svproc` LaTeX manuscript (strictly 8 pages, 100% audited empirical results).
+  - 🖥️ **Presentation Slide Deck (20 Slides)**: [**`KMUTNB_Conference_Presentation_20Slides.pptx` (Google Drive)**](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) — *Official visual keynote deck detailing bio-cyber inspiration, data clean-room, CDKT dynamics, and benchmark results.*
+* **Track 2 Deliverables (Q1 Cybersecurity Journal Track)**:
+  - 📝 **Comprehensive Master Monograph (Level-4 Verification)**: [**`TRI_Technical_Report.docx` (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) — *50+ page authoritative technical report with complete mathematical derivations, Byzantine fault tolerance, differential privacy proofs, and all 32 publication figures.*
+
 
 ---
 
