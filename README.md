@@ -22,6 +22,12 @@
 
 
 <p align="center">
+  <img src="reports/report_figures_master/conference-pic.jpg" width="920" alt="SCIN 2026 Conference Research Presentation Defense" />
+  <br/>
+  <em><b>Official Conference Defense & Presentation at SCIN 2026 (Thailand):</b> Principal Researcher <b>Huynh Huu Tri</b> presenting the DAFL framework with Advisory Committee Supervisors (<b>Assoc. Prof. Dr. Khanista Namee</b>, <b>Asst. Prof. Dr. Karn Na Sritha</b>, and faculty co-advisors) at King Mongkut's University of Technology North Bangkok (KMUTNB) and Posts and Telecommunications Institute of Technology (PTIT).</em>
+</p>
+
+<p align="center">
   <img src="reports/report_figures_master/Fig03_bio_cyber_equivalence_schematic.png" width="920" alt="Bio-Cyber Equivalence Schematic" />
   <br/>
   <em><b>Figure A:</b> Bio-Cyber Equivalence Architecture — Translating the Stem Cell Niche Microenvironment to Dual-Anchor Federated Learning across Enterprise Silos.</em>
@@ -584,12 +590,6 @@ flowchart TD
 * **Track 2 Deliverables (Q1 Cybersecurity Journal Track)**:
   - 📝 **Comprehensive Master Monograph (Level-4 Verification)**: [**`TRI_Technical_Report.docx` (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) — *50+ page authoritative technical report with complete mathematical derivations, Byzantine fault tolerance, differential privacy proofs, and all 32 publication figures.*
 
-<p align="center">
-  <img src="reports/report_figures_master/conference-pic.jpg" width="920" alt="Research Presentation & Defense at SCIN Conference" />
-  <br/>
-  <em><b>Figure 31:</b> Research Presentation & Defense at SCIN 2026 (Thailand) — Principal Researcher <b>Tri Huynh</b> presenting with Supervisors & Advisory Committee Members (<b>Assoc. Prof. Dr. Khanista Namee</b>, <b>Asst. Prof. Dr. Karn Na Sritha</b>, and research faculty) representing <b>King Mongkut's University of Technology North Bangkok (KMUTNB)</b> and <b>Posts and Telecommunications Institute of Technology (PTIT)</b>.</em>
-</p>
-
 ---
 
 
@@ -653,12 +653,12 @@ python src/stage_03_neural_foundation/3.1_pretrain_transformer_wbase.py
 
 ## 📜 14. Model Card, Authorship & Citation
 
-### Institutional Affiliation & Authors
+### Institutional Affiliation & Research Laboratory
 
 <p align="center">
-  <img src="reports/report_figures_master/conference-pic.jpg" width="900" alt="KMUTNB & PTIT Research Alliance Team Photo" />
+  <img src="reports/report_figures_master/kmutnb_ai_security_lab_research_team.png" width="920" alt="KMUTNB AI & Cybersecurity Research Lab Team" />
   <br/>
-  <em><b>KMUTNB & PTIT Research Alliance Team:</b> First Author Huynh Huu Tri with Advisory Committee Supervisors at the SCIN 2026 conference presentation defense.</em>
+  <em><b>KMUTNB AI & Cybersecurity Research Laboratory:</b> First Author <b>Huynh Huu Tri</b>, Supervisor <b>Assoc. Prof. Dr. Khanista Namee</b>, and research lab colleagues at the Department of Information Technology, Faculty of Industrial Technology and Management, King Mongkut's University of Technology North Bangkok (KMUTNB).</em>
 </p>
 
 * **First Author**: Huynh Huu Tri (`huynhhuutri2004@gmail.com`)
