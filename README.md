@@ -11,18 +11,24 @@
 
 > **Official Research Repository & Engineering Monograph** for *Diversity-Aware Federated Learning with Dual-Anchor Regularization (DAFL)* in privacy-preserving Web Application Firewalls (WAF). Designed to detect evasive **Cross-Site Scripting (XSS)**, **SQL Injection (SQLi)**, and **Path Traversal** attacks across cross-sector enterprise silos without raw HTTP log centralization.
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig03_bio_cyber_equivalence_schematic.png" width="920" alt="Bio-Cyber Equivalence Schematic" />
+  <br/>
+  <em><b>Figure A:</b> Bio-Cyber Equivalence Architecture — Translating the Stem Cell Niche Microenvironment to Dual-Anchor Federated Learning across Enterprise Silos.</em>
+</p>
+
 ---
 
 ## 📑 Table of Contents
 1. [Executive Summary & Core Scientific Contributions](#-1-executive-summary--core-scientific-contributions)
 2. [End-to-End System Architecture](#-2-end-to-end-system-architecture)
-3. [The Regulatory Privacy Wall & Threat Skew Crisis](#-3-the-regulatory-privacy-wall--threat-skew-crisis)
+3. [The Regulatory Privacy Wall & Bio-Inspired Foundations](#-3-the-regulatory-privacy-wall--bio-inspired-foundations)
 4. [Cryptographic Clean-Room Data Foundation](#-4-cryptographic-clean-room-data-foundation)
-5. [Paired Non-IID Enterprise Silo Topology](#-5-paired-non-iid-enterprise-silo-topology)
+5. [Paired Non-IID Enterprise Silo Topology & Breach Crisis](#-5-paired-non-iid-enterprise-silo-topology--breach-crisis)
 6. [Lightweight Micro-Transformer Neural Architecture](#-6-lightweight-micro-transformer-neural-architecture)
 7. [Bio-Inspired Dual-Anchor Federated Learning (DAFL)](#-7-bio-inspired-dual-anchor-federated-learning-dafl)
 8. [Wire-Speed Edge Deployment & WebAssembly SLA](#-8-wire-speed-edge-deployment--webassembly-sla)
-9. [Master Empirical Benchmark & Publication Tables](#-9-master-empirical-benchmark--publication-tables)
+9. [Master Empirical Benchmark & Threat Mitigation](#-9-master-empirical-benchmark--threat-mitigation)
 10. [Ablation Studies & Hyperparameter Sensitivity](#-10-ablation-studies--hyperparameter-sensitivity)
 11. [Tri-Factor Explainable AI (XAI) Engine](#-11-tri-factor-explainable-ai-xai-engine)
 12. [Dual-Track Academic Dissemination Roadmap](#-12-dual-track-academic-dissemination-roadmap)
@@ -52,6 +58,12 @@ Modern web infrastructure handles hundreds of billions of HTTP requests daily. C
 • Wire-Speed Reverse Proxy   : Inline C++ WebAssembly (Wasm) filter for Envoy & NGINX (< 2.0 ms SLA)
 ====================================================================================================
 ```
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig25_privacy_utility_pareto_tradeoff.png" width="880" alt="Privacy Utility Pareto Tradeoff" />
+  <br/>
+  <em><b>Figure 1:</b> Privacy-Utility-SLA Pareto Frontier — Centralized Pooling vs. Local Isolation vs. DAFL Collaborative Consensus.</em>
+</p>
 
 ---
 
@@ -119,9 +131,15 @@ flowchart TB
     GLOBAL -. Export ONNX .-> ONNX
 ```
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig16_fl_10_round_consensus_protocol.png" width="900" alt="10-Round Federated Consensus Protocol" />
+  <br/>
+  <em><b>Figure 2:</b> Federated Server Consensus and Edge Client Synchronization Topology across 10 Communication Rounds.</em>
+</p>
+
 ---
 
-## ⚖️ 3. The Regulatory Privacy Wall & Threat Skew Crisis
+## ⚖️ 3. The Regulatory Privacy Wall & Bio-Inspired Foundations
 
 ### 3.1 Inextricable PII Entanglement
 In web application security, an exploit payload does not exist in isolation; it is deeply embedded within legitimate HTTP headers, authentication cookies, and JSON request bodies:
@@ -141,10 +159,30 @@ Content-Type: application/json
 }                                                                   <-- LETHAL SQL INJECTION
 ```
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig04_regulatory_barrier_pii_entanglement.png" width="880" alt="Inextricable PII Entanglement & Regulatory Privacy Wall" />
+  <br/>
+  <em><b>Figure 3:</b> Inextricable PII Entanglement in HTTP Transactions & The Regulatory Privacy Wall (GDPR Art. 4 & PCI-DSS 3.4).</em>
+</p>
+
 * Under **GDPR Article 4(1)**, IP addresses, names, and session identifiers are identifiable personal data. Centralizing raw HTTP logs triggers statutory fines reaching **€20,000,000 or 4% of annual global turnover**.
 * Under **PCI-DSS Requirement 3.4**, transmitting primary account numbers across multi-tenant cloud storage is strictly prohibited without specialized end-to-end tokenization.
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig05_four_critical_research_gaps.png" width="880" alt="Taxonomy of Four Critical Research Gaps" />
+  <br/>
+  <em><b>Figure 4:</b> Taxonomy of Four Critical Research Gaps in Contemporary Web Application Defense.</em>
+</p>
+
 ### 3.2 Biological Inspiration: The Wood-Wide Web & Epigenetic Homeostasis
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig01_bio_wood_wide_web_mycelium.jpg" width="440" alt="Wood-Wide Web Mycelium" />
+  &nbsp;&nbsp;
+  <img src="reports/report_figures_master/Fig02_bio_stem_cell_niche_dual_anchor.jpg" width="440" alt="Stem Cell Niche Homeostasis" />
+  <br/>
+  <em><b>Figure 5:</b> Bio-Computational Paradigms — (Left) The Wood-Wide Web: Mycorrhizal networks propagating pest warnings without tree mobility; (Right) The Stem Cell Niche: Microenvironmental physical anchor preserving ground-state pluripotency.</em>
+</p>
 
 ```mermaid
 flowchart LR
@@ -182,29 +220,17 @@ flowchart LR
 
 The experimental foundation reconciles **5,325,763 raw HTTP payloads** collected from 7 premier international security corpora:
 
-```mermaid
-flowchart TD
-    RAW["1. Raw Ingestion Streams (5,325,763 Records)<br/>• CSIC 2010 • OWASP CRS v4 • PayloadsAllTheThings<br/>• SecLists • Morzeux HttpParams • Kaggle • Honeypot Ingress"]
-    NORM["2. 3-Pass Deterministic Normalization Engine<br/>• Recursive URL Decoding (Fixed-Point Idempotence)<br/>• HTML Entity & Hex Unescaping<br/>• Unicode NFKC Normalization<br/>• Transient Token Masking (&lt;IP&gt;, &lt;TOKEN&gt;, &lt;UUID&gt;)"]
-    HASH["3. SHA-256 Cryptographic Deduplication<br/>Primary Unique Clusters: 3,873,805 Records<br/>(Eliminated 1,451,958 Redundant Scans)"]
-    CONSENSUS{"4. Dual-Consensus High-Confidence Filter<br/>Layer 1: OWASP CRS v4 Regex Engine<br/>Layer 2: Structural Syntax Embedding Agreement"}
-    QUAR["Quarantined Ambiguous & Rejected<br/>1,079,517 Records (20.3% Excluded)"]
-    GOLD["5. Confirmed Gold Manifest: 2,794,288 Records<br/>Benign: 74.16% | XSS: 22.26% | SQLi: 2.79% | PathTrav: 0.57%"]
+<p align="center">
+  <img src="reports/report_figures_master/Fig06_data_pipeline_clean_room_funnel.png" width="900" alt="Data Clean Room Funnel" />
+  <br/>
+  <em><b>Figure 6:</b> Data Clean-Room Processing Funnel: 5.32M Raw Ingested to 2.79M Confirmed Unique Clusters.</em>
+</p>
 
-    RAW --> NORM --> HASH --> CONSENSUS
-    CONSENSUS -- "Discordant / Ambiguous" --> QUAR
-    CONSENSUS -- "Verified Ground Truth" --> GOLD
-
-    subgraph Pools ["Cryptographic Three-Pool Partitioning (Exact 0.0000% Hash Overlap)"]
-        POOL_A["Pool A: Foundation Pretrain (40k)<br/>Balanced 1:1:1:1 via M1-M8 Mutations<br/>+ 125,497 Natural Holdout"]
-        POOL_B["Pool B: Enterprise Federated Silos (2.37M)<br/>6 Paired Non-IID Clients (C1-C6)<br/>+ 711,138 Global Holdout"]
-        POOL_C["Pool C: External Gold OOD Holdout (17,139)<br/>Real Zero-Days: CSIC 2010, SecLists, PATT<br/>Strict Lineage Isolation"]
-    end
-
-    GOLD --> POOL_A
-    GOLD --> POOL_B
-    GOLD --> POOL_C
-```
+<p align="center">
+  <img src="reports/report_figures_master/Fig07_two_tier_cryptographic_zero_leakage_split.png" width="900" alt="Cryptographic Zero Leakage Split" />
+  <br/>
+  <em><b>Figure 7:</b> Upstream Two-Tier Partitioning & Cryptographic Zero-Leakage Lineage Isolation (Pool A, Pool B, Pool C).</em>
+</p>
 
 ### 4.1 Master Data Accounting Manifest
 
@@ -221,51 +247,53 @@ flowchart TD
 
 $$\text{Lineage Overlap Verification: } \text{Pool A} \cap \text{Pool B} \cap \text{Pool C} = \emptyset \quad (\mathbf{0.0000\% \text{ Leakage}})$$
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig27_data_accounting_master_flow_and_classes.png" width="900" alt="Master Data Accounting Flow" />
+  <br/>
+  <em><b>Figure 8:</b> Master Canonical Data Accounting Dashboard: Ingestion Funnel, Class Share Evolution, and 6-Silo Allocations.</em>
+</p>
+
 ### 4.2 Bounded Syntactic Mutation Operators (M1–M8)
-To address the extreme rarity of Path Traversal payloads (0.57%) without corrupting discrete syntax grammar through synthetic continuous interpolation (such as SMOTE), we formulated 8 deterministic syntactic mutation operators:
-* **M1 (Separator Inversion)**: `../` $\leftrightarrow$ `..\`
-* **M2 (Traversal Chaining)**: Depth scaling from 3 to 7 levels (`../../../../`)
-* **M3 (Target Injection)**: `/etc/passwd` $\rightarrow$ `/etc/shadow`, `/windows/win.ini`, `/proc/self/environ`
-* **M4 (Null-Byte Injection)**: Appending `%00` or `%00.jpg` to bypass extension validators
-* **M5 (Double-Slash Inversion)**: `..//..//` $\leftrightarrow$ `.././../`
-* **M6 (Hex Encodings)**: Hex escaping individual tokens (`%2e%2e%2f`)
-* **M7 (Absolute Scheme Prefix)**: Prepending `file:///` or `c:\`
-* **M8 (Case-Toggle Mutation)**: Alternating keyword casing in query parameters
+To address the extreme rarity of Path Traversal payloads (0.57%) without corrupting discrete syntax grammar through continuous feature interpolation (e.g., SMOTE), we formulated 8 deterministic syntactic mutation operators:
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig08_semantic_mutation_taxonomy_m1_m8.png" width="900" alt="Semantic Mutation Taxonomy" />
+  <br/>
+  <em><b>Figure 9:</b> Taxonomy of 8 Fast Bounded Syntactic Mutation Operators (M1–M8) for Path Traversal Minority Balancing.</em>
+</p>
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig23_payload_character_length_distribution.png" width="850" alt="Payload Character Length Distribution" />
+  <br/>
+  <em><b>Figure 10:</b> Empirical Payload Sequence Character Length Distribution Post-Sanitization across Attack Families.</em>
+</p>
 
 ---
 
-## 🏛️ 5. Paired Non-IID Enterprise Silo Topology
+## 🏛️ 5. Paired Non-IID Enterprise Silo Topology & Breach Crisis
 
 Rather than relying on synthetic Dirichlet allocations ($\text{Dir}(\alpha)$) which fail to capture real corporate operational structures, Pool B is structured into **three distinct economic sectors**, each mapped to a pair of competitive enterprise silos:
 
-```mermaid
-graph LR
-    subgraph Sec1 ["Sector 1: E-Commerce Retail"]
-        C1["Client 1: Online Retailer<br/>356,331 records<br/>96.9% XSS | 1.5% SQLi | 0.3% Path"]
-        C2["Client 2: Global Marketplace<br/>356,332 records<br/>96.9% XSS | 1.5% SQLi | 0.3% Path"]
-    end
+<p align="center">
+  <img src="reports/report_figures_master/Fig09_pool_b_6_client_paired_non_iid_skew.png" width="900" alt="Pool B 6-Client Paired Non-IID Skew" />
+  <br/>
+  <em><b>Figure 11:</b> Pool B Paired Non-IID Enterprise Silo Partitioning across Three Economic Sectors (E-Commerce, Banking, Cloud SaaS).</em>
+</p>
 
-    subgraph Sec2 ["Sector 2: Financial Banking"]
-        C3["Client 3: Fintech Core Banking<br/>243,115 records<br/>49.9% SQLi | 49.8% XSS | 1.3% Path"]
-        C4["Client 4: Payment Processor<br/>243,115 records<br/>49.9% SQLi | 49.8% XSS | 1.3% Path"]
-    end
-
-    subgraph Sec3 ["Sector 3: Cloud Infrastructure"]
-        C5["Client 5: Enterprise SaaS Hub<br/>230,210 records<br/>44.8% Path | 27.4% SQLi | 21.8% XSS"]
-        C6["Client 6: Multi-Tenant Cloud<br/>230,214 records<br/>44.8% Path | 27.4% SQLi | 21.8% XSS"]
-    end
-
-    C1 --- C2
-    C3 --- C4
-    C5 --- C6
-
-    Sec1 -. "KL Div > 2.85 nats (Violent Skew)" .-> Sec2
-    Sec2 -. "KL Div > 3.12 nats (Violent Skew)" .-> Sec3
-    Sec1 -. "KL Div > 3.40 nats (Violent Skew)" .-> Sec3
-```
+<p align="center">
+  <img src="reports/report_figures_master/Fig13_silo_dispatch_isolated_training.png" width="900" alt="Silo Dispatch Isolated Training" />
+  <br/>
+  <em><b>Figure 12:</b> Enterprise Silo Dispatch and Isolated Local Fine-Tuning Setup.</em>
+</p>
 
 ### The "In-Domain Illusion" & Silo Breach Crisis
 When fine-tuned in isolation without federation, every client achieves **>99.8% in-domain validation accuracy**. However, when tested on foreign attack families or external zero-days (Pool C), their defenses disintegrate:
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig14_silo_blindspots_and_breach_crisis.png" width="900" alt="Silo Blind Spots & Breach Crisis" />
+  <br/>
+  <em><b>Figure 13:</b> The In-Domain Accuracy Illusion & Critical Silo Breach Crisis (1,310 Lethal Payloads Leaking to Databases).</em>
+</p>
 
 ```
 +---------------------------------------------------------------------------------------------------+
@@ -285,43 +313,29 @@ When fine-tuned in isolation without federation, every client achieves **>99.8% 
 +---------------------------------------------------------------------------------------------------+
 ```
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig15_cross_evaluation_heatmap_6x6.png" width="880" alt="6x6 Cross Evaluation Heatmap" />
+  <br/>
+  <em><b>Figure 14:</b> 6×6 Local Silo Cross-Evaluation Heatmap Matrix: Catastrophic Forgetting of Foreign Threat Vectors in Isolation.</em>
+</p>
+
 ---
 
 ## ⚡ 6. Lightweight Micro-Transformer Neural Architecture
 
 Traditional security language models (e.g., SecBERT, RoBERTa) contain over 110 million parameters and require GPU acceleration, incurring over 40 ms of latency per HTTP request—violating reverse proxy SLAs by 59×. We architected a custom character-level sequence transformer optimized for CPU execution:
 
-```mermaid
-flowchart TB
-    INPUT["Raw HTTP Request String<br/>e.g., 'GET /api/users?id=1%20UNION%20SELECT%20... '"]
-    TOK["ASCII Character Tokenizer (128 Tokens)<br/>Maps printable ASCII [32..126], delimiters &lt;&gt;';/=-, and control tokens"]
-    EMB["Token & Positional Embeddings<br/>d_model = 64 | Maximum Sequence Length = 256"]
+<p align="center">
+  <img src="reports/report_figures_master/Fig10_transformer_encoder_architecture.png" width="900" alt="Transformer Encoder Architecture" />
+  <br/>
+  <em><b>Figure 15:</b> Multi-Head Character-Level Transformer Encoder Architecture (156K Parameters, 630 KB Footprint).</em>
+</p>
 
-    subgraph Blocks ["3 Stacked Transformer Encoder Layers"]
-        direction TB
-        subgraph Layer1 ["Encoder Layer 1"]
-            MHA1["Multi-Head Self-Attention<br/>4 Attention Heads (d_k = 16)"]
-            LN1["LayerNorm & Residual Connection"]
-            FFN1["Position-Wise Feed-Forward<br/>d_ff = 128 (GELU Activation)"]
-            LN2["LayerNorm & Residual Connection"]
-            MHA1 --> LN1 --> FFN1 --> LN2
-        end
-        subgraph Layer2 ["Encoder Layer 2 (Identical Spec)"]
-            ENC2["4-Head Attention + GELU FFN (d=128)"]
-        end
-        subgraph Layer3 ["Encoder Layer 3 (Feature Extraction)"]
-            ENC3["4-Head Attention + GELU FFN (d=128)"]
-        end
-        Layer1 --> Layer2 --> Layer3
-    end
-
-    POOL["Global Average Pooling Layer<br/>Aggregates sequence representations over time dimension"]
-    HEAD["Linear Classification Head<br/>Dense(64 -> 4 Output Logits)"]
-    FUSION["Runtime Dual-Head Probability Fusion<br/>P_final = 0.30 * Softmax(W_base) + 0.70 * Softmax(W_dafl)"]
-    OUT["Final Prediction: [Benign, XSS, SQLi, Path Traversal]"]
-
-    INPUT --> TOK --> EMB --> Blocks --> POOL --> HEAD --> FUSION --> OUT
-```
+<p align="center">
+  <img src="reports/report_figures_master/Fig11_baseline_tournament_deep_vs_classical.png" width="900" alt="Baseline Tournament Deep vs Classical" />
+  <br/>
+  <em><b>Figure 16:</b> Architectural Tournament: Severe Domain Collapse of Classical Machine Learning vs. Deep Sequence Robustness.</em>
+</p>
 
 ### Architecture Specifications:
 * **Vocabulary Size**: 128 ASCII tokens (indices 0–127).
@@ -333,13 +347,15 @@ flowchart TB
 * **Serialized Memory Footprint**: **630 KB (ONNX format)**.
 * **Single-Core CPU Latency**: **0.72 ms (Wire-speed edge compliance)**.
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig12_edge_latency_memory_pareto_frontier.png" width="880" alt="Edge Latency Memory Pareto Frontier" />
+  <br/>
+  <em><b>Figure 17:</b> Wire-Speed Edge SLA Pareto Frontier: Latency vs. Memory Footprint across Neural Cyber Architectures.</em>
+</p>
+
 ---
 
 ## 🧬 7. Bio-Inspired Dual-Anchor Federated Learning (DAFL)
-
-Standard federated algorithms fail under extreme enterprise non-IID skew:
-* **FedAvg**: Suffers from **Client Drift**, causing parameters to oscillate and overwrite minority attack representations.
-* **FedProx**: Introduces a proximal penalty $\frac{\mu}{2}\|\theta_k - W_{global}\|^2$ to restrain drift toward the server, but traps clients within consensus, hindering rapid acquisition of newly discovered threats.
 
 ### 7.1 Mathematical Formulation of DAFL
 DAFL balances local empirical learning against two orthogonal stabilizing forces:
@@ -351,48 +367,23 @@ Where:
 * **Anchor 1 ($\lambda_{anchor} = 0.02$) — The Stem-Cell Niche**: Anchors the local model to the frozen foundation vault $W_{base}$. Prevents catastrophic forgetting of universal HTTP character syntax and minority attack grammar.
 * **Anchor 2 ($\lambda_{global} = 0.05$) — The Systemic Morphogen**: Tethers the local model to the current global consensus $W_{global}^{(t)}$, pulling isolated silos out of local blind spots.
 
-```mermaid
-flowchart TD
-    subgraph OptimizationSpace ["Parameter Optimization Landscape"]
-        W_BASE(("⚓ W_base<br/>(Frozen Foundation Vault)"))
-        W_GLOBAL(("🌐 W_global^(t)<br/>(Current Federated Consensus)"))
-        THETA(("🎯 θ_k<br/>(Local Silo Optimum)"))
+<p align="center">
+  <img src="reports/report_figures_master/Fig17_cdkt_threat_transfer_convergence.png" width="900" alt="CDKT Threat Transfer Convergence" />
+  <br/>
+  <em><b>Figure 18:</b> Cross-Domain Knowledge Transfer (CDKT) Convergence Dynamics: DAFL Compressing the Blind Spot Gap down to 7.6%.</em>
+</p>
 
-        W_BASE -- "λ_anchor ||θ_k - W_base||²<br/>(Preserves Foundational Syntax)" --> THETA
-        W_GLOBAL -- "λ_global ||θ_k - W_global||²<br/>(Eliminates Cross-Sector Blind Spots)" --> THETA
-        L_TASK["Local Task Loss ∇ L_task(θ_k; D_k)<br/>(Adapts to Local Threat Stream)"] --> THETA
-    end
-```
+<p align="center">
+  <img src="reports/report_figures_master/Fig29_10_round_convergence_and_loss_dynamics.png" width="900" alt="10-Round Convergence and Loss Dynamics" />
+  <br/>
+  <em><b>Figure 19:</b> Federated Optimization Profile & System Communication Dynamics across 10 Communication Rounds.</em>
+</p>
 
-### 7.2 10-Round Cross-Domain Knowledge Transfer (CDKT) Timeline
-Over 10 communication rounds, DAFL steadily compresses cross-sector blind spots without exposing raw customer data:
-
-```mermaid
-sequenceDiagram
-    autonumber
-    participant Server as 🌐 Federated Coordinator
-    participant Vault as ⚓ W_base Vault
-    participant C_Ecom as 🏢 Client 1 & 2 (E-Com)
-    participant C_Bank as 🏦 Client 3 & 4 (Banking)
-    participant C_Cloud as ☁️ Client 5 & 6 (Cloud SaaS)
-
-    Note over Server,Vault: Round 0: Initialize W_global^(0) <- W_base
-    Server->>C_Ecom: Broadcast W_global^(0)
-    Server->>C_Bank: Broadcast W_global^(0)
-    Server->>C_Cloud: Broadcast W_global^(0)
-
-    loop Round t = 1 to 10
-        Note over C_Ecom,C_Cloud: Local Optimization (2 Epochs, AdamW lr=1e-4)<br/>Compute Dual-Anchor Objective L_DAFL
-        C_Ecom-->>Server: Upload ΔW_1, ΔW_2 (Encrypted Parameter Deltas)
-        C_Bank-->>Server: Upload ΔW_3, ΔW_4 (Encrypted Parameter Deltas)
-        C_Cloud-->>Server: Upload ΔW_5, ΔW_6 (Encrypted Parameter Deltas)
-        Note over Server: Weighted Aggregation: W_global^(t+1) = W_global^(t) + Σ (n_k/N) ΔW_k
-        Server->>C_Ecom: Broadcast W_global^(t+1)
-        Server->>C_Bank: Broadcast W_global^(t+1)
-        Server->>C_Cloud: Broadcast W_global^(t+1)
-        Note over Server: Blind Spot Vulnerability Gap Compresses: 59.8% -> 7.6%
-    end
-```
+<p align="center">
+  <img src="reports/report_figures_master/Fig32_hyperparameter_sensitivity_dual_anchor_grid.png" width="880" alt="Hyperparameter Sensitivity 2D Grid" />
+  <br/>
+  <em><b>Figure 20:</b> Optimization Stability & Hyperparameter Landscape Forensics: 2D Response Grid and Bounded Gradient Drift Proof.</em>
+</p>
 
 ---
 
@@ -408,20 +399,15 @@ Reverse proxy architectures (Envoy, NGINX, HAProxy) enforce a strict **2.0 ms SL
 | **1D CharCNN (3-Scale)** | 1.2M | 4.8 MB | 12 MB | 1.85 ms | 2.45 ms | ⚠️ Marginal Pass |
 | **Ours: Micro-Transformer** | **0.156M** | **0.63 MB** | **< 2.0 MB** | **0.72 ms** | **1.41 ms** | ✅ **WIRE-SPEED PASS** |
 
-```mermaid
-flowchart LR
-    subgraph ReverseProxy ["Reverse Proxy Pipeline (NGINX / Envoy)"]
-        REQ["Client HTTP Request"] --> PROXY["Proxy Core Engine"]
-        PROXY --> FILTER["Inline C++ Wasm Filter<br/>(DAFL ONNX Runtime)"]
-        FILTER --> DECISION{"Classification"}
-        DECISION -- "Malicious (p > 0.9)" --> BLOCK["403 Forbidden<br/>(Terminated in 0.72 ms)"]
-        DECISION -- "Benign" --> BACKEND["Forward to Upstream Microservices"]
-    end
-```
+<p align="center">
+  <img src="reports/report_figures_master/Fig24_inline_edge_waf_wasm_runtime.png" width="900" alt="Inline Edge WAF Wasm Runtime" />
+  <br/>
+  <em><b>Figure 21:</b> Production Inline C++ WebAssembly WAF Architecture for Reverse Proxies (NGINX / Envoy) Operating at 0.72 ms.</em>
+</p>
 
 ---
 
-## 📊 9. Master Empirical Benchmark & Publication Tables
+## 📊 9. Master Empirical Benchmark & Threat Mitigation
 
 ### Table 1: Master Federated Optimization Benchmark
 Evaluated across 6 Client Test Partitions, Global Test Holdout B (355,570 samples), and External Gold OOD Benchmark (17,139 real zero-days from CSIC 2010, SecLists, PayloadsAllTheThings):
@@ -435,6 +421,12 @@ Evaluated across 6 Client Test Partitions, Global Test Holdout B (355,570 sample
 | 🏅 **FedAvgM ($\beta=0.9$)** | Server-Side Momentum | 0.9794 | 99.83% | 0.9901 | 82.10% | 0.7482 *(Oscillated)* |
 | 🏆 **DAFL (Ours)** | Dual-Anchor Regularized | 0.9709 | 99.78% | 0.9874 | **90.29%** | **0.8698** *(+6.44% vs Oracle)* |
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig19_multi_pool_macro_f1_performance.png" width="900" alt="Multi-Pool Macro F1 Performance" />
+  <br/>
+  <em><b>Figure 22:</b> Multi-Pool Scientific Audit: Performance Across Local Silos, 355K Global Network Holdout, and Gold OOD Benchmark.</em>
+</p>
+
 ### Table 2: Mitigation of Critical Enterprise Database Breaches
 Empirical audit of Client 1 (E-Commerce Silo) under direct attack by 912 authentic zero-day SQL Injection payloads:
 
@@ -445,7 +437,25 @@ Empirical audit of Client 1 (E-Commerce Silo) under direct attack by 912 authent
 | **3. FedProx ($\mu=0.01$)** | 75.80% | 170 Leaked | 18.6% | Moderate Transfer |
 | **4. DAFL Consensus (Ours)** | **85.53%** *(+24.67%)* | **78 Leaked** | **8.5%** | 🛡️ **-74.2% Database Breaches** |
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig18_database_breach_mitigation_ecommerce.png" width="900" alt="Database Breach Mitigation E-Commerce" />
+  <br/>
+  <em><b>Figure 23:</b> Slashing Enterprise Database Breach Risk by 74.2%: Elevating SQLi Recall from 60.86% to 85.53% at Client 1.</em>
+</p>
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig30_client_by_client_threat_transfer_matrix.png" width="900" alt="Client-by-Client Threat Transfer Matrix" />
+  <br/>
+  <em><b>Figure 24:</b> Enterprise Silo-by-Silo Knowledge Transfer & Breach Reduction Forensics across All 6 Clients.</em>
+</p>
+
 ### Table 3: Gold OOD Dual Confusion Matrix Forensics (17,139 Zero-Days)
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig20_dual_confusion_matrices_gold_ood.png" width="900" alt="Dual Confusion Matrices Gold OOD" />
+  <br/>
+  <em><b>Figure 25:</b> Pre-FL vs. Post-FL Dual Confusion Matrices on 17,139 Authentic Zero-Days: Slashed Benign False Alarms by 75.4%.</em>
+</p>
 
 ```
 ====================================================================================================
@@ -466,6 +476,12 @@ Benign Specificity: 85.2% (1,877 False Alarms)      | Benign Specificity: 90.1% 
 * **XSS False Positive Suppression**: Legitimate e-commerce queries misclassified as XSS collapsed from **1,115 down to 274 (-75.4%)**, directly eliminating denial-of-service on legitimate customer transactions.
 * **Path Traversal Retention**: Preserved **91.92% recall (1,149 / 1,250)** while standard FedProx collapsed to 42.10%.
 
+<p align="center">
+  <img src="reports/report_figures_master/Fig28_per_class_ood_radar_and_f1_matrix.png" width="880" alt="Per-Class Threat Forensics Radar" />
+  <br/>
+  <em><b>Figure 26:</b> Per-Class Threat Forensics on Gold OOD Benchmark (17,139 samples): Path Traversal Preservation in DAFL vs. Collapse in Vanilla FedAvg.</em>
+</p>
+
 ---
 
 ## 🔬 10. Ablation Studies & Hyperparameter Sensitivity
@@ -480,10 +496,23 @@ Benign Specificity: 85.2% (1,877 False Alarms)      | Benign Specificity: 90.1% 
 | **w/o Federation (Local isolation)** | 0.9224 | -6.66% | 0.3840 | **-48.58%** | Severe cross-sector blind spots |
 | **Uniform IID Control (No skew)** | 0.9925 | +0.35% | 0.4649 | -40.49% | Fails to reflect enterprise diversity |
 
-### 10.1 Regularization Grid Sensitivity ($\lambda_{anchor}$ vs $\lambda_{global}$)
-* When $\lambda_{anchor} > 0.05$, local silos become over-constrained, retarding local adaptation.
-* When $\lambda_{global} > 0.10$, client updates collapse prematurely into the global centroid, suppressing specialized threat discovery.
-* **Optimal Operating Equilibrium**: **$\lambda_{anchor} = 0.02$, $\lambda_{global} = 0.05$**.
+<p align="center">
+  <img src="reports/report_figures_master/Fig21_systematic_component_ablation.png" width="900" alt="Systematic Component Ablation Breakdown" />
+  <br/>
+  <em><b>Figure 27:</b> Systematic Component Ablation Breakdown: Quantifying the Critical Necessity of Anchor 1, Sanitization, and Federation.</em>
+</p>
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig26_runtime_ensemble_alpha_sweep.png" width="850" alt="Runtime Ensemble Alpha Sweep" />
+  <br/>
+  <em><b>Figure 28:</b> Runtime Firewall Probability Fusion Alpha Parameter Sweep: Optimizing Gold OOD Macro F1 at alpha = 0.70.</em>
+</p>
+
+<p align="center">
+  <img src="reports/report_figures_master/Fig31_subgroup_error_analysis_and_failure_taxonomy.png" width="900" alt="Subgroup Error Analysis & Failure Taxonomy" />
+  <br/>
+  <em><b>Figure 29:</b> Empirical Subgroup Error Analysis: Root Causes of False Alarms and Leaked Exploit Mechanics.</em>
+</p>
 
 ---
 
@@ -491,24 +520,11 @@ Benign Specificity: 85.2% (1,877 False Alarms)      | Benign Specificity: 90.1% 
 
 To eliminate "black-box" resistance from Security Operations Center (SOC) teams, FedWebPayload incorporates a tri-factor white-box attribution suite:
 
-```mermaid
-flowchart LR
-    PAYLOAD["Raw Exploit Payload"] --> MODEL["Micro-Transformer"]
-    
-    subgraph XAIEngine ["Tri-Factor XAI Suite"]
-        ATTN["1. Self-Attention Maps<br/>Extract Layer-3 Head Weights"]
-        SALIENCY["2. Gradient Saliency<br/>∂y_c / ∂x_i Input Attribution"]
-        SHAP_LIME["3. KernelSHAP & LIME<br/>Game-Theoretic Coalitions"]
-    end
-
-    MODEL --> ATTN
-    MODEL --> SALIENCY
-    MODEL --> SHAP_LIME
-
-    ATTN --> REPORT["Unified SOC Analyst Audit Report<br/>(Interactive HTML Visualization)"]
-    SALIENCY --> REPORT
-    SHAP_LIME --> REPORT
-```
+<p align="center">
+  <img src="reports/report_figures_master/Fig22_explainable_ai_saliency_and_shap.png" width="920" alt="Unified Explainable AI Showcase" />
+  <br/>
+  <em><b>Figure 30:</b> Unified Explainable AI (XAI) Showcase: Token Attention Saliency Maps Corroborated by KernelSHAP and LIME.</em>
+</p>
 
 ### 11.1 Token-Level Saliency Inspection
 1. **SQL Injection (Banking Zero-Day)**:
