@@ -14,11 +14,11 @@
 > [!IMPORTANT]
 > ### 🌟 Key Research Artifacts & Live Working Documents
 > 
-> | 🖥️ **Conference Slide Deck (20 Slides)** | 📄 **Master Technical Monograph** | 📸 **Live Conference Presentation** |
-> | :---: | :---: | :---: |
-> | [![Google Slides](https://img.shields.io/badge/Slides-KMUTNB__Conference__Presentation__20Slides.pptx-D93728?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white)](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | [![Google Docs](https://img.shields.io/badge/Report-TRI__Technical__Report.docx-1A73E8?style=for-the-badge&logo=microsoftword&logoColor=white)](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | [![Conference Photo](https://img.shields.io/badge/Defense_Photo-SCIN_2026-2EA44F?style=for-the-badge&logo=googlephotos&logoColor=white)](#-12-dual-track-academic-dissemination-roadmap) |
-> | 📊 [**Open Slides (Google Drive)**](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | 📝 [**Open Report (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | 🎓 [**View Defense & Team Photo**](#-12-dual-track-academic-dissemination-roadmap) |
-> | *Official 20-slide visual conference deck detailing bio-cyber equivalence, 100% audited data funnel, CDKT transfer, and benchmark findings.* | *Exhaustive academic research monograph (50+ pages, Level-4 verification, 32 publication figures, and full regulatory & mathematical proofs).* | *On-site conference presentation defense with KMUTNB & PTIT research advisory committee.* |
+> | 🖥️ **Conference Slide Deck (20 Slides)** | 📄 **Master Technical Monograph** |
+> | :---: | :---: |
+> | [![Google Slides](https://img.shields.io/badge/Slides-KMUTNB__Conference__Presentation__20Slides.pptx-D93728?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white)](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | [![Google Docs](https://img.shields.io/badge/Report-TRI__Technical__Report.docx-1A73E8?style=for-the-badge&logo=microsoftword&logoColor=white)](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) |
+> | 📊 [**Open Slides (Google Drive)**](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | 📝 [**Open Report (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) |
+> | *Official 20-slide visual conference deck detailing bio-cyber equivalence, 100% audited data funnel, CDKT transfer, and benchmark findings.* | *Exhaustive academic research monograph (50+ pages, Level-4 verification, 32 publication figures, and full regulatory & mathematical proofs).* |
 
 
 <p align="center">
