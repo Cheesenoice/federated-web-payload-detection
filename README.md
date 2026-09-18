@@ -14,11 +14,12 @@
 > [!IMPORTANT]
 > ### 🌟 Key Research Artifacts & Live Working Documents
 > 
-> | 🖥️ **Conference Presentation Slide Deck (20 Slides)** | 📄 **Comprehensive Master Technical Report** |
-> | :---: | :---: |
-> | [![Google Slides](https://img.shields.io/badge/Slides-KMUTNB__Conference__Presentation__20Slides.pptx-D93728?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white)](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | [![Google Docs](https://img.shields.io/badge/Report-TRI__Technical__Report.docx-1A73E8?style=for-the-badge&logo=microsoftword&logoColor=white)](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) |
-> | 📊 [**Open `KMUTNB_Conference_Presentation_20Slides.pptx` (Google Drive)**](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | 📝 [**Open `TRI_Technical_Report.docx` (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) |
-> | *Official 20-slide visual conference deck detailing bio-cyber equivalence, 100% audited data funnel, CDKT transfer, and benchmark findings.* | *Exhaustive academic research monograph (50+ pages, Level-4 verification, 32 publication figures, and full regulatory & mathematical proofs).* |
+> | 🖥️ **Conference Slide Deck (20 Slides)** | 📄 **Master Technical Monograph** | 📸 **Live Conference Presentation** |
+> | :---: | :---: | :---: |
+> | [![Google Slides](https://img.shields.io/badge/Slides-KMUTNB__Conference__Presentation__20Slides.pptx-D93728?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white)](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | [![Google Docs](https://img.shields.io/badge/Report-TRI__Technical__Report.docx-1A73E8?style=for-the-badge&logo=microsoftword&logoColor=white)](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | [![Conference Photo](https://img.shields.io/badge/Defense_Photo-SCIN_2026-2EA44F?style=for-the-badge&logo=googlephotos&logoColor=white)](#-12-dual-track-academic-dissemination-roadmap) |
+> | 📊 [**Open Slides (Google Drive)**](https://docs.google.com/presentation/d/1BjDLZYCAnlooh7aB6eegxXujwkVSu9OC/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | 📝 [**Open Report (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) | 🎓 [**View Defense & Team Photo**](#-12-dual-track-academic-dissemination-roadmap) |
+> | *Official 20-slide visual conference deck detailing bio-cyber equivalence, 100% audited data funnel, CDKT transfer, and benchmark findings.* | *Exhaustive academic research monograph (50+ pages, Level-4 verification, 32 publication figures, and full regulatory & mathematical proofs).* | *On-site conference presentation defense with KMUTNB & PTIT research advisory committee.* |
+
 
 <p align="center">
   <img src="reports/report_figures_master/Fig03_bio_cyber_equivalence_schematic.png" width="920" alt="Bio-Cyber Equivalence Schematic" />
@@ -583,8 +584,14 @@ flowchart TD
 * **Track 2 Deliverables (Q1 Cybersecurity Journal Track)**:
   - 📝 **Comprehensive Master Monograph (Level-4 Verification)**: [**`TRI_Technical_Report.docx` (Google Drive)**](https://docs.google.com/document/d/1PYUGTn67Od20cFF92KocdevfQpAyHHhV/edit?usp=sharing&ouid=113015507222254663973&rtpof=true&sd=true) — *50+ page authoritative technical report with complete mathematical derivations, Byzantine fault tolerance, differential privacy proofs, and all 32 publication figures.*
 
+<p align="center">
+  <img src="reports/report_figures_master/conference-pic.jpg" width="920" alt="Research Presentation & Defense at SCIN Conference" />
+  <br/>
+  <em><b>Figure 31:</b> Research Presentation & Defense at SCIN 2026 (Thailand) — Principal Researcher <b>Tri Huynh</b> presenting with Supervisors & Advisory Committee Members (<b>Assoc. Prof. Dr. Khanista Namee</b>, <b>Asst. Prof. Dr. Karn Na Sritha</b>, and research faculty) representing <b>King Mongkut's University of Technology North Bangkok (KMUTNB)</b> and <b>Posts and Telecommunications Institute of Technology (PTIT)</b>.</em>
+</p>
 
 ---
+
 
 ## 🚀 13. Step-by-Step Reproduction Guide
 
@@ -647,6 +654,13 @@ python src/stage_03_neural_foundation/3.1_pretrain_transformer_wbase.py
 ## 📜 14. Model Card, Authorship & Citation
 
 ### Institutional Affiliation & Authors
+
+<p align="center">
+  <img src="reports/report_figures_master/conference-pic.jpg" width="900" alt="KMUTNB & PTIT Research Alliance Team Photo" />
+  <br/>
+  <em><b>KMUTNB & PTIT Research Alliance Team:</b> First Author Huynh Huu Tri with Advisory Committee Supervisors at the SCIN 2026 conference presentation defense.</em>
+</p>
+
 * **First Author**: Huynh Huu Tri (`huynhhuutri2004@gmail.com`)
   * *Department of Information Technology, Faculty of Industrial Technology and Management, King Mongkut’s University of Technology North Bangkok (KMUTNB), Thailand.*
   * *Faculty of Information Technology, Posts and Telecommunications Institute of Technology (PTIT), Ho Chi Minh City, Vietnam.*
