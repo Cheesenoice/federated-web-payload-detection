@@ -1,0 +1,15 @@
+{
+  "id": "trihuynhviprovcl/stage-04-track3-fedavgm",
+  "title": "stage-04-track3-fedavgm",
+  "code_file": "stage_04_track3_fedavgm.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "false",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "trihuynhviprovcl/kmutnb-webpayload-full-data"
+  ],
+  "kernel_sources": []
+}

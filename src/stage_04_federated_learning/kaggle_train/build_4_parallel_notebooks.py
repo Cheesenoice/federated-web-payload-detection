@@ -1,0 +1,663 @@
+import json
+import os
+
+KAGGLE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+COMMON_IMPORTS = '''import os
+import sys
+import time
+import copy
+import json
+import logging
+import shutil
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import numpy as np
+import pandas as pd
+from torch.utils.data import Dataset, DataLoader, ConcatDataset
+from sklearn.metrics import f1_score, accuracy_score, classification_report, precision_score, recall_score
+import matplotlib
+import matplotlib.pyplot as plt
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
+
+# Device Configuration & Kaggle GPU Check
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("="*80)
+print(f"🚀 RUNNING DEVICE: [{device}]")
+if torch.cuda.is_available():
+    gpu_name = torch.cuda.get_device_name(0)
+    cap = torch.cuda.get_device_capability(0)
+    vram_gb = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+    print(f"   GPU Model   : {gpu_name} (Architecture: sm_{cap[0]}{cap[1]})")
+    print(f"   Total VRAM  : {vram_gb:.2f} GB")
+    if cap[0] < 7:
+        print("\n⚠️ WARNING: Tesla P100 (sm_60) lacks PyTorch 2.6 CUDA kernel images.")
+        print("👉 RECOMMENDED FIX: In Kaggle Settings (right panel), set Accelerator to 'GPU T4 x2'.\n")
+print("="*80)
+
+# Dynamic Path Discovery
+KAGGLE_INPUT_DIR = "/kaggle/input"
+WORKING_DIR = "/kaggle/working" if os.path.exists("/kaggle") else "./outputs_kaggle"
+
+DATA_ROOT = None
+potential_paths = [
+    os.path.join(KAGGLE_INPUT_DIR, "kmutnb-webpayload-full-data", "fedwebpayload_full_data"),
+    os.path.join(KAGGLE_INPUT_DIR, "kmutnb-webpayload-full-data"),
+    os.path.join(KAGGLE_INPUT_DIR, "fedwebpayload-full-data", "fedwebpayload_full_data"),
+    os.path.join(KAGGLE_INPUT_DIR, "fedwebpayload-full-data"),
+    "./fedwebpayload_full_data",
+    "../fedwebpayload_full_data"
+]
+
+for p in potential_paths:
+    if os.path.exists(os.path.join(p, "clients")) or os.path.exists(os.path.join(p, "pool_b_global_test.parquet")):
+        DATA_ROOT = p
+        break
+
+if DATA_ROOT is None:
+    for root, dirs, files in os.walk(KAGGLE_INPUT_DIR):
+        if "pool_b_global_test.parquet" in files:
+            DATA_ROOT = root
+            break
+
+print(f"📂 Resolved Data Root: {DATA_ROOT}")
+CLIENTS_DIR = os.path.join(DATA_ROOT, "clients") if os.path.exists(os.path.join(DATA_ROOT, "clients")) else DATA_ROOT
+CACHE_DIR = os.path.join(WORKING_DIR, "tokenized_cache")
+MODELS_DIR = os.path.join(WORKING_DIR, "models")
+ROUND_CKPT_DIR = os.path.join(MODELS_DIR, "round_checkpoints")
+REPORTS_DIR = os.path.join(WORKING_DIR, "reports")
+FIGURES_DIR = os.path.join(REPORTS_DIR, "figures")
+
+for d in [CACHE_DIR, MODELS_DIR, ROUND_CKPT_DIR, REPORTS_DIR, FIGURES_DIR]:
+    os.makedirs(d, exist_ok=True)
+print("✅ Environment directories initialized successfully.")
+'''
+
+COMMON_DATA_AND_MODEL = '''# Constants & Vectorized Tokenizer
+PAD_IDX = 0
+UNK_IDX = 1
+VOCAB_SIZE = 130
+MAX_LEN = 256
+EMBEDDING_DIM = 64
+NUM_CLASSES = 4
+LABEL_MAP = {"benign": 0, "pathtrav": 1, "sqli": 2, "xss": 3}
+INV_LABEL_MAP = {v: k for k, v in LABEL_MAP.items()}
+
+def encode_strings_vectorized(texts, max_len=MAX_LEN):
+    n = len(texts)
+    arr = np.full((n, max_len), PAD_IDX, dtype=np.uint8)
+    for i, s in enumerate(texts):
+        if not isinstance(s, str):
+            s = str(s) if s is not None else ""
+        b = s.encode("ascii", errors="replace")[:max_len]
+        for j in range(len(b)):
+            val = b[j]
+            arr[i, j] = (val + 2) if val < 128 else UNK_IDX
+    return arr
+
+class FastPretokenizedDataset(Dataset):
+    def __init__(self, x_uint8_tensor, y_int64_tensor):
+        self.x = x_uint8_tensor
+        self.y = y_int64_tensor
+
+    def __len__(self):
+        return len(self.x)
+
+    def __getitem__(self, idx):
+        return self.x[idx].long(), self.y[idx]
+
+def get_or_create_tokenized_dataset(parquet_path, cache_name):
+    cache_path = os.path.join(CACHE_DIR, f"{cache_name}.pt")
+    if os.path.exists(cache_path):
+        data = torch.load(cache_path)
+        return FastPretokenizedDataset(data["x"], data["y"])
+        
+    print(f"   [Pre-tokenizing] {cache_name} from {os.path.basename(parquet_path)}...")
+    df = pd.read_parquet(parquet_path)
+    df_filtered = df[df["final_label"].isin(LABEL_MAP.keys())].copy()
+    
+    texts = df_filtered["sanitized_payload"].fillna("").astype(str).values
+    labels = df_filtered["final_label"].map(LABEL_MAP).values.astype(np.int64)
+    
+    x_tensor = torch.from_numpy(encode_strings_vectorized(texts, max_len=MAX_LEN))
+    y_tensor = torch.from_numpy(labels)
+    
+    torch.save({"x": x_tensor, "y": y_tensor}, cache_path)
+    mb_size = x_tensor.element_size() * x_tensor.nelement() / (1024*1024)
+    print(f"      -> Cached {cache_name}.pt ({len(x_tensor):,} samples, {mb_size:.1f} MB)")
+    return FastPretokenizedDataset(x_tensor, y_tensor)
+
+def load_client_loaders(batch_size=512):
+    train_loaders, val_loaders, client_sample_counts = {}, {}, {}
+    for i in range(1, 7):
+        cid = f"client_{i}"
+        t_path = os.path.join(CLIENTS_DIR, f"{cid}_train.parquet")
+        v_path = os.path.join(CLIENTS_DIR, f"{cid}_val.parquet")
+        t_ds = get_or_create_tokenized_dataset(t_path, f"{cid}_train")
+        v_ds = get_or_create_tokenized_dataset(v_path, f"{cid}_val")
+        train_loaders[cid] = DataLoader(t_ds, batch_size=batch_size, shuffle=True, pin_memory=torch.cuda.is_available())
+        val_loaders[cid] = DataLoader(v_ds, batch_size=batch_size, shuffle=False, pin_memory=torch.cuda.is_available())
+        client_sample_counts[cid] = len(t_ds)
+    return train_loaders, val_loaders, client_sample_counts
+
+def load_test_holdouts(batch_size=512):
+    client_test_loaders = {}
+    for i in range(1, 7):
+        cid = f"client_{i}"
+        path = os.path.join(CLIENTS_DIR, f"{cid}_test.parquet")
+        ds = get_or_create_tokenized_dataset(path, f"{cid}_test")
+        client_test_loaders[cid] = DataLoader(ds, batch_size=batch_size, shuffle=False, pin_memory=torch.cuda.is_available())
+        
+    b_path = os.path.join(DATA_ROOT, "pool_b_global_test.parquet")
+    b_ds = get_or_create_tokenized_dataset(b_path, "pool_b_global_test")
+    global_b_loader = DataLoader(b_ds, batch_size=batch_size, shuffle=False, pin_memory=torch.cuda.is_available())
+    
+    ood_cache_path = os.path.join(CACHE_DIR, "ood_csic2010.pt")
+    if os.path.exists(ood_cache_path):
+        ood_data = torch.load(ood_cache_path)
+        ood_ds = FastPretokenizedDataset(ood_data["x"], ood_data["y"])
+    else:
+        ood_parquet = os.path.join(DATA_ROOT, "ood_csic2010.parquet")
+        if os.path.exists(ood_parquet):
+            ood_df = pd.read_parquet(ood_parquet)
+        else:
+            manifest_df = pd.read_parquet(os.path.join(DATA_ROOT, "sample_manifest.parquet"))
+            ood_df = manifest_df[(manifest_df["pool_id"] == "OOD") & (manifest_df["final_label"].isin(LABEL_MAP.keys()))]
+            
+        texts = ood_df["sanitized_payload"].fillna("").astype(str).values
+        labels = ood_df["final_label"].map(LABEL_MAP).values.astype(np.int64)
+        x_tensor = torch.from_numpy(encode_strings_vectorized(texts, max_len=MAX_LEN))
+        y_tensor = torch.from_numpy(labels)
+        torch.save({"x": x_tensor, "y": y_tensor}, ood_cache_path)
+        ood_ds = FastPretokenizedDataset(x_tensor, y_tensor)
+        
+    ood_loader = DataLoader(ood_ds, batch_size=batch_size, shuffle=False, pin_memory=torch.cuda.is_available())
+    return client_test_loaders, global_b_loader, ood_loader
+
+class TransformerEncoderNet(nn.Module):
+    def __init__(self, vocab_size=VOCAB_SIZE, embed_dim=EMBEDDING_DIM, num_heads=4, num_layers=3, num_classes=4, max_len=MAX_LEN):
+        super(TransformerEncoderNet, self).__init__()
+        self.token_embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
+        self.pos_embedding = nn.Parameter(torch.zeros(1, max_len, embed_dim))
+        
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=num_heads,
+            dim_feedforward=256,
+            dropout=0.2,
+            activation="gelu",
+            batch_first=True
+        )
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        self.ln = nn.LayerNorm(embed_dim)
+        self.dropout = nn.Dropout(0.3)
+        self.fc = nn.Linear(embed_dim, num_classes)
+
+    def forward(self, x):
+        seq_len = x.size(1)
+        padding_mask = (x == 0)
+        emb = self.token_embedding(x) + self.pos_embedding[:, :seq_len, :]
+        h = self.transformer_encoder(emb, src_key_padding_mask=padding_mask)
+        mask = (~padding_mask).unsqueeze(-1).float()
+        pooled = torch.sum(h * mask, dim=1) / torch.clamp(mask.sum(dim=1), min=1.0)
+        pooled = self.ln(pooled)
+        pooled = self.dropout(pooled)
+        return self.fc(pooled)
+
+def load_w_base(device):
+    w_base_candidates = [
+        os.path.join(DATA_ROOT, "W_base.pt"),
+        os.path.join(DATA_ROOT, "models", "W_base.pt"),
+        "./W_base.pt"
+    ]
+    path = next((p for p in w_base_candidates if os.path.exists(p)), None)
+    if path is None:
+        raise FileNotFoundError("W_base.pt anchor not found.")
+    ckpt = torch.load(path, map_location=device)
+    model = TransformerEncoderNet(num_classes=4).to(device)
+    model.load_state_dict(ckpt["model_state_dict"])
+    return model, "transformer", ckpt["model_state_dict"]
+
+def aggregate_weighted_parameters(client_states, client_weights):
+    total_weight = sum(client_weights.values())
+    aggregated_state = {}
+    first_cid = list(client_states.keys())[0]
+    for key in client_states[first_cid].keys():
+        agg_tensor = torch.zeros_like(client_states[first_cid][key], dtype=torch.float32)
+        for cid, state in client_states.items():
+            weight = client_weights[cid] / total_weight
+            agg_tensor += state[key].to(torch.float32) * weight
+        aggregated_state[key] = agg_tensor.to(client_states[first_cid][key].dtype)
+    return aggregated_state
+
+def evaluate_loader_metrics(model, loader, device):
+    model.eval()
+    all_preds, all_trues = [], []
+    with torch.no_grad():
+        for x, y in loader:
+            x = x.to(device)
+            with torch.amp.autocast(device_type="cuda" if torch.cuda.is_available() else "cpu", enabled=torch.cuda.is_available()):
+                logits = model(x)
+            preds = torch.argmax(logits, dim=1).cpu().numpy()
+            all_preds.extend(preds)
+            all_trues.extend(y.numpy())
+    acc = accuracy_score(all_trues, all_preds)
+    macro_f1 = f1_score(all_trues, all_preds, labels=[0, 1, 2, 3], average="macro", zero_division=0)
+    return acc, macro_f1
+'''
+
+COMMON_ZIP_CELL = lambda zip_name: f'''# Final Step: Bundle Checkpoints, CSVs & Figures into ZIP
+bundle_zip_base = os.path.join(WORKING_DIR, "{zip_name}")
+print("="*80)
+print("📦 PACKING ALL ARTIFACTS INTO DOWNLOADABLE ZIP...")
+print("="*80)
+
+package_dir = os.path.join(WORKING_DIR, "export_bundle")
+os.makedirs(package_dir, exist_ok=True)
+
+shutil.copytree(MODELS_DIR, os.path.join(package_dir, "models"), dirs_exist_ok=True)
+shutil.copytree(REPORTS_DIR, os.path.join(package_dir, "reports"), dirs_exist_ok=True)
+
+shutil.make_archive(bundle_zip_base, 'zip', package_dir)
+zip_path = bundle_zip_base + ".zip"
+zip_size_mb = os.path.getsize(zip_path) / (1024 * 1024)
+
+print(f"🎉 SUCCESS! All research artifacts packaged into:")
+print(f"   👉 {{zip_path}} ({{zip_size_mb:.2f}} MB)")
+print("="*80)
+print("Download this ZIP directly from the Kaggle Output panel!")
+'''
+
+def create_nb(cells):
+    return {
+        'cells': cells,
+        'metadata': {
+            'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'},
+            'language_info': {'name': 'python', 'version': '3.11.0'},
+            'accelerator': 'GPU'
+        },
+        'nbformat': 4,
+        'nbformat_minor': 4
+    }
+
+def mk_md(text):
+    return {'cell_type': 'markdown', 'metadata': {}, 'source': [line + '\n' for line in text.strip().split('\n')]}
+
+def mk_code(text):
+    return {'cell_type': 'code', 'execution_count': None, 'metadata': {}, 'outputs': [], 'source': [line + '\n' for line in text.strip().split('\n')]}
+
+# =========================================================================
+# NOTEBOOK 1: CENTRALIZED ORACLE + FEDAVG
+# =========================================================================
+track1_cells = [
+    mk_md('# 🛡️ Track 1: Centralized Oracle & Standard FedAvg (1.32M Full Data)\n### KMUTNB WebPayload Federated Learning'),
+    mk_code(COMMON_IMPORTS),
+    mk_code(COMMON_DATA_AND_MODEL),
+    mk_code('''print("="*80)
+print("=== STARTING STAGE 4.1: CENTRALIZED ORACLE (UPPER BOUND) ===")
+print("="*80)
+central_model, model_type, _ = load_w_base(device)
+train_loaders, val_loaders, _ = load_client_loaders(batch_size=512)
+
+pooled_train_ds = ConcatDataset([loader.dataset for loader in train_loaders.values()])
+pooled_val_ds = ConcatDataset([loader.dataset for loader in val_loaders.values()])
+print(f"Pooled Centralized Training Samples:   {len(pooled_train_ds):,}")
+print(f"Pooled Centralized Validation Samples: {len(pooled_val_ds):,}")
+
+central_train_loader = DataLoader(pooled_train_ds, batch_size=512, shuffle=True, pin_memory=torch.cuda.is_available())
+central_val_loader = DataLoader(pooled_val_ds, batch_size=512, shuffle=False, pin_memory=torch.cuda.is_available())
+
+criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
+optimizer = torch.optim.AdamW(central_model.parameters(), lr=3e-4, weight_decay=1e-4)
+scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=1e-5)
+scaler = torch.amp.GradScaler(enabled=torch.cuda.is_available())
+
+epochs = 10
+best_val_f1, best_state = 0.0, None
+start_t = time.time()
+
+for ep in range(1, epochs + 1):
+    ep_t0 = time.time()
+    central_model.train()
+    total_loss = 0.0
+    for x, y in central_train_loader:
+        x, y = x.to(device), y.to(device)
+        optimizer.zero_grad()
+        with torch.amp.autocast(device_type="cuda" if torch.cuda.is_available() else "cpu", enabled=torch.cuda.is_available()):
+            loss = criterion(central_model(x), y)
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
+        total_loss += loss.item()
+    scheduler.step()
+    val_acc, val_f1 = evaluate_loader_metrics(central_model, central_val_loader, device)
+    ep_time = time.time() - ep_t0
+    print(f"   [Centralized] Epoch {ep:02d}/{epochs:02d} ({ep_time:.1f}s) | Train Loss: {total_loss/len(central_train_loader):.4f} | Val F1: {val_f1*100:.2f}% (Acc: {val_acc*100:.2f}%)")
+    if val_f1 > best_val_f1:
+        best_val_f1, best_state = val_f1, copy.deepcopy(central_model.state_dict())
+
+torch.save({"algorithm": "Centralized_Oracle", "model_type": model_type, "model_state_dict": best_state, "val_f1": best_val_f1}, os.path.join(MODELS_DIR, "W_centralized.pt"))
+print(f"✅ Saved Centralized Oracle Checkpoint (Total: {time.time()-start_t:.1f}s)\\n")
+'''),
+    mk_code('''print("="*80)
+print("=== STARTING STAGE 4.2: STANDARD FEDERATED AVERAGING (FedAvg) ===")
+print("="*80)
+global_model, model_type, global_state = load_w_base(device)
+train_loaders, val_loaders, client_sample_counts = load_client_loaders(batch_size=512)
+client_test_loaders, global_b_loader, ood_loader = load_test_holdouts(batch_size=512)
+
+rounds, local_epochs = 10, 3
+history_fedavg = []
+
+def train_local(cid, state, lr=3e-4):
+    local_m = TransformerEncoderNet(num_classes=4).to(device)
+    local_m.load_state_dict(copy.deepcopy(state))
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
+    optimizer = torch.optim.AdamW(local_m.parameters(), lr=lr, weight_decay=1e-4)
+    scaler = torch.amp.GradScaler(enabled=torch.cuda.is_available())
+    local_m.train()
+    for _ in range(local_epochs):
+        for x, y in train_loaders[cid]:
+            x, y = x.to(device), y.to(device)
+            optimizer.zero_grad()
+            with torch.amp.autocast(device_type="cuda" if torch.cuda.is_available() else "cpu", enabled=torch.cuda.is_available()):
+                loss = criterion(local_m(x), y)
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+    _, v_f1 = evaluate_loader_metrics(local_m, val_loaders[cid], device)
+    return local_m.state_dict(), v_f1
+
+for r in range(1, rounds + 1):
+    t0 = time.time()
+    c_states, c_f1s = {}, {}
+    for i in range(1, 7):
+        cid = f"client_{i}"
+        s, f1 = train_local(cid, global_state)
+        c_states[cid], c_f1s[cid] = s, f1
+    global_state = aggregate_weighted_parameters(c_states, client_sample_counts)
+    global_model.load_state_dict(global_state)
+    b_acc, b_f1 = evaluate_loader_metrics(global_model, global_b_loader, device)
+    round_t = time.time() - t0
+    print(f"   [FedAvg] Round {r:02d}/{rounds:02d} ({round_t:.1f}s) -> Global Test B Macro F1: {b_f1*100:.2f}% (Acc: {b_acc*100:.2f}%)")
+    entry = {"Algorithm": "FedAvg", "Round": r, "Global_Test_B_Acc": b_acc, "Global_Test_B_Macro_F1": b_f1, "Time_s": round_t}
+    history_fedavg.append(entry)
+    ckpt_path = os.path.join(ROUND_CKPT_DIR, f"fedavg_round_{r:02d}.pt")
+    torch.save({"algorithm": "FedAvg", "round": r, "model_state_dict": global_state, "metrics": entry}, ckpt_path)
+
+pd.DataFrame(history_fedavg).to_csv(os.path.join(REPORTS_DIR, "history_fedavg.csv"), index=False)
+torch.save({"algorithm": "FedAvg", "model_type": model_type, "model_state_dict": global_state}, os.path.join(MODELS_DIR, "W_fedavg.pt"))
+
+# Final Track 1 Evaluation
+b_acc, b_f1 = evaluate_loader_metrics(global_model, global_b_loader, device)
+ood_acc, ood_f1 = evaluate_loader_metrics(global_model, ood_loader, device)
+print("="*80)
+print(f"🏆 TRACK 1 (FedAvg) FINAL RESULT:")
+print(f"   Global Test B Macro F1: {b_f1*100:.2f}% (Acc: {b_acc*100:.2f}%)")
+print(f"   OOD CSIC 2010 Macro F1: {ood_f1*100:.2f}% (Acc: {ood_acc*100:.2f}%)")
+print("="*80)
+'''),
+    mk_code(COMMON_ZIP_CELL("KMUTNB_TRACK1_CENTRALIZED_FEDAVG_RESULTS"))
+]
+
+# =========================================================================
+# NOTEBOOK 2: FEDPROX (MU = 0.01)
+# =========================================================================
+track2_cells = [
+    mk_md('# 🛡️ Track 2: FedProx Algorithm (\\mu=0.01) (1.32M Full Data)\n### KMUTNB WebPayload Federated Learning'),
+    mk_code(COMMON_IMPORTS),
+    mk_code(COMMON_DATA_AND_MODEL),
+    mk_code('''print("="*80)
+print("=== STARTING STAGE 4.3: FEDPROX (mu=0.01) ===")
+print("="*80)
+global_model, model_type, global_state = load_w_base(device)
+train_loaders, val_loaders, client_sample_counts = load_client_loaders(batch_size=512)
+client_test_loaders, global_b_loader, ood_loader = load_test_holdouts(batch_size=512)
+
+MU_PROXIMAL = 0.01
+rounds, local_epochs = 10, 3
+history_fedprox = []
+
+def train_fedprox(cid, g_state, mu=MU_PROXIMAL):
+    local_m = TransformerEncoderNet(num_classes=4).to(device)
+    local_m.load_state_dict(copy.deepcopy(g_state))
+    g_tensors = {k: v.clone().detach().to(device) for k, v in g_state.items()}
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
+    optimizer = torch.optim.AdamW(local_m.parameters(), lr=3e-4, weight_decay=1e-4)
+    scaler = torch.amp.GradScaler(enabled=torch.cuda.is_available())
+    local_m.train()
+    for _ in range(local_epochs):
+        for x, y in train_loaders[cid]:
+            x, y = x.to(device), y.to(device)
+            optimizer.zero_grad()
+            with torch.amp.autocast(device_type="cuda" if torch.cuda.is_available() else "cpu", enabled=torch.cuda.is_available()):
+                loss = criterion(local_m(x), y)
+                prox = sum(torch.sum((p - g_tensors[n]) ** 2) for n, p in local_m.named_parameters() if n in g_tensors)
+                total_loss = loss + (mu / 2.0) * prox
+            scaler.scale(total_loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+    _, v_f1 = evaluate_loader_metrics(local_m, val_loaders[cid], device)
+    return local_m.state_dict(), v_f1
+
+for r in range(1, rounds + 1):
+    t0 = time.time()
+    c_states, c_f1s = {}, {}
+    for i in range(1, 7):
+        cid = f"client_{i}"
+        s, f1 = train_fedprox(cid, global_state)
+        c_states[cid], c_f1s[cid] = s, f1
+    global_state = aggregate_weighted_parameters(c_states, client_sample_counts)
+    global_model.load_state_dict(global_state)
+    b_acc, b_f1 = evaluate_loader_metrics(global_model, global_b_loader, device)
+    round_t = time.time() - t0
+    print(f"   [FedProx] Round {r:02d}/{rounds:02d} ({round_t:.1f}s) -> Global Test B Macro F1: {b_f1*100:.2f}% (Acc: {b_acc*100:.2f}%)")
+    entry = {"Algorithm": "FedProx", "Round": r, "Global_Test_B_Acc": b_acc, "Global_Test_B_Macro_F1": b_f1, "Time_s": round_t}
+    history_fedprox.append(entry)
+    ckpt_path = os.path.join(ROUND_CKPT_DIR, f"fedprox_round_{r:02d}.pt")
+    torch.save({"algorithm": "FedProx", "round": r, "model_state_dict": global_state, "metrics": entry}, ckpt_path)
+
+pd.DataFrame(history_fedprox).to_csv(os.path.join(REPORTS_DIR, "history_fedprox.csv"), index=False)
+torch.save({"algorithm": "FedProx", "model_type": model_type, "model_state_dict": global_state}, os.path.join(MODELS_DIR, "W_fedprox.pt"))
+
+# Final Track 2 Evaluation
+b_acc, b_f1 = evaluate_loader_metrics(global_model, global_b_loader, device)
+ood_acc, ood_f1 = evaluate_loader_metrics(global_model, ood_loader, device)
+print("="*80)
+print(f"🏆 TRACK 2 (FedProx) FINAL RESULT:")
+print(f"   Global Test B Macro F1: {b_f1*100:.2f}% (Acc: {b_acc*100:.2f}%)")
+print(f"   OOD CSIC 2010 Macro F1: {ood_f1*100:.2f}% (Acc: {ood_acc*100:.2f}%)")
+print("="*80)
+'''),
+    mk_code(COMMON_ZIP_CELL("KMUTNB_TRACK2_FEDPROX_RESULTS"))
+]
+
+# =========================================================================
+# NOTEBOOK 3: FEDAVGM (MOMENTUM BETA = 0.9)
+# =========================================================================
+track3_cells = [
+    mk_md('# 🛡️ Track 3: FedAvgM Algorithm (\\beta=0.9) (1.32M Full Data)\n### KMUTNB WebPayload Federated Learning'),
+    mk_code(COMMON_IMPORTS),
+    mk_code(COMMON_DATA_AND_MODEL),
+    mk_code('''print("="*80)
+print("=== STARTING STAGE 4.4: FEDAVGM (beta=0.9) ===")
+print("="*80)
+global_model, model_type, global_state = load_w_base(device)
+train_loaders, val_loaders, client_sample_counts = load_client_loaders(batch_size=512)
+client_test_loaders, global_b_loader, ood_loader = load_test_holdouts(batch_size=512)
+
+BETA_MOMENTUM = 0.9
+velocity_buffer = {k: torch.zeros_like(v, dtype=torch.float32) for k, v in global_state.items()}
+rounds, local_epochs = 10, 3
+history_fedavgm = []
+
+def train_local(cid, state, lr=3e-4):
+    local_m = TransformerEncoderNet(num_classes=4).to(device)
+    local_m.load_state_dict(copy.deepcopy(state))
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
+    optimizer = torch.optim.AdamW(local_m.parameters(), lr=lr, weight_decay=1e-4)
+    scaler = torch.amp.GradScaler(enabled=torch.cuda.is_available())
+    local_m.train()
+    for _ in range(local_epochs):
+        for x, y in train_loaders[cid]:
+            x, y = x.to(device), y.to(device)
+            optimizer.zero_grad()
+            with torch.amp.autocast(device_type="cuda" if torch.cuda.is_available() else "cpu", enabled=torch.cuda.is_available()):
+                loss = criterion(local_m(x), y)
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+    _, v_f1 = evaluate_loader_metrics(local_m, val_loaders[cid], device)
+    return local_m.state_dict(), v_f1
+
+for r in range(1, rounds + 1):
+    t0 = time.time()
+    c_states = {}
+    for i in range(1, 7):
+        cid = f"client_{i}"
+        s, _ = train_local(cid, global_state)
+        c_states[cid] = s
+    w_avg = aggregate_weighted_parameters(c_states, client_sample_counts)
+    
+    new_global = {}
+    for k in global_state.keys():
+        delta = global_state[k].to(torch.float32) - w_avg[k].to(torch.float32)
+        velocity_buffer[k] = BETA_MOMENTUM * velocity_buffer[k] + delta
+        new_tensor = global_state[k].to(torch.float32) - velocity_buffer[k]
+        new_global[k] = new_tensor.to(global_state[k].dtype)
+        
+    global_state = new_global
+    global_model.load_state_dict(global_state)
+    b_acc, b_f1 = evaluate_loader_metrics(global_model, global_b_loader, device)
+    round_t = time.time() - t0
+    print(f"   [FedAvgM] Round {r:02d}/{rounds:02d} ({round_t:.1f}s) -> Global Test B Macro F1: {b_f1*100:.2f}% (Acc: {b_acc*100:.2f}%)")
+    entry = {"Algorithm": "FedAvgM", "Round": r, "Global_Test_B_Acc": b_acc, "Global_Test_B_Macro_F1": b_f1, "Time_s": round_t}
+    history_fedavgm.append(entry)
+    ckpt_path = os.path.join(ROUND_CKPT_DIR, f"fedavgm_round_{r:02d}.pt")
+    torch.save({"algorithm": "FedAvgM", "round": r, "model_state_dict": global_state, "metrics": entry}, ckpt_path)
+
+pd.DataFrame(history_fedavgm).to_csv(os.path.join(REPORTS_DIR, "history_fedavgm.csv"), index=False)
+torch.save({"algorithm": "FedAvgM", "model_type": model_type, "model_state_dict": global_state}, os.path.join(MODELS_DIR, "W_fedavgm.pt"))
+
+# Final Track 3 Evaluation
+b_acc, b_f1 = evaluate_loader_metrics(global_model, global_b_loader, device)
+ood_acc, ood_f1 = evaluate_loader_metrics(global_model, ood_loader, device)
+print("="*80)
+print(f"🏆 TRACK 3 (FedAvgM) FINAL RESULT:")
+print(f"   Global Test B Macro F1: {b_f1*100:.2f}% (Acc: {b_acc*100:.2f}%)")
+print(f"   OOD CSIC 2010 Macro F1: {ood_f1*100:.2f}% (Acc: {ood_acc*100:.2f}%)")
+print("="*80)
+'''),
+    mk_code(COMMON_ZIP_CELL("KMUTNB_TRACK3_FEDAVGM_RESULTS"))
+]
+
+# =========================================================================
+# NOTEBOOK 4: DAFL (LAMBDA = 0.02) & HYBRID ENSEMBLE
+# =========================================================================
+track4_cells = [
+    mk_md('# 🛡️ Track 4: DAFL (\\lambda=0.02) & Hybrid Ensemble (1.32M Full Data)\n### KMUTNB WebPayload Federated Learning'),
+    mk_code(COMMON_IMPORTS),
+    mk_code(COMMON_DATA_AND_MODEL),
+    mk_code('''print("="*80)
+print("=== STARTING STAGE 4.5 & 4.6: DAFL (lambda=0.02) & HYBRID ENSEMBLE ===")
+print("="*80)
+global_model, model_type, global_state = load_w_base(device)
+base_model, _, _ = load_w_base(device)
+base_tensors = {k: v.clone().detach().to(device) for k, v in global_state.items()}
+train_loaders, val_loaders, client_sample_counts = load_client_loaders(batch_size=512)
+client_test_loaders, global_b_loader, ood_loader = load_test_holdouts(batch_size=512)
+
+LAMBDA_ANCHOR = 0.02
+rounds, local_epochs = 10, 3
+history_dafl = []
+
+def train_dafl(cid, g_state, lambda_reg=LAMBDA_ANCHOR):
+    local_m = TransformerEncoderNet(num_classes=4).to(device)
+    local_m.load_state_dict(copy.deepcopy(g_state))
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
+    optimizer = torch.optim.AdamW(local_m.parameters(), lr=3e-4, weight_decay=1e-4)
+    scaler = torch.amp.GradScaler(enabled=torch.cuda.is_available())
+    local_m.train()
+    for _ in range(local_epochs):
+        for x, y in train_loaders[cid]:
+            x, y = x.to(device), y.to(device)
+            optimizer.zero_grad()
+            with torch.amp.autocast(device_type="cuda" if torch.cuda.is_available() else "cpu", enabled=torch.cuda.is_available()):
+                loss = criterion(local_m(x), y)
+                anchor_loss = sum(torch.sum((p - base_tensors[n]) ** 2) for n, p in local_m.named_parameters() if n in base_tensors)
+                total_loss = loss + (lambda_reg / 2.0) * anchor_loss
+            scaler.scale(total_loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+    _, v_f1 = evaluate_loader_metrics(local_m, val_loaders[cid], device)
+    return local_m.state_dict(), v_f1
+
+for r in range(1, rounds + 1):
+    t0 = time.time()
+    c_states = {}
+    for i in range(1, 7):
+        cid = f"client_{i}"
+        s, _ = train_dafl(cid, global_state)
+        c_states[cid] = s
+    global_state = aggregate_weighted_parameters(c_states, client_sample_counts)
+    global_model.load_state_dict(global_state)
+    b_acc, b_f1 = evaluate_loader_metrics(global_model, global_b_loader, device)
+    round_t = time.time() - t0
+    print(f"   [DAFL] Round {r:02d}/{rounds:02d} ({round_t:.1f}s) -> Global Test B Macro F1: {b_f1*100:.2f}% (Acc: {b_acc*100:.2f}%)")
+    entry = {"Algorithm": "DAFL", "Round": r, "Global_Test_B_Acc": b_acc, "Global_Test_B_Macro_F1": b_f1, "Time_s": round_t}
+    history_dafl.append(entry)
+    ckpt_path = os.path.join(ROUND_CKPT_DIR, f"dafl_round_{r:02d}.pt")
+    torch.save({"algorithm": "DAFL", "round": r, "model_state_dict": global_state, "metrics": entry}, ckpt_path)
+
+pd.DataFrame(history_dafl).to_csv(os.path.join(REPORTS_DIR, "history_dafl.csv"), index=False)
+torch.save({"algorithm": "DAFL", "model_type": model_type, "model_state_dict": global_state}, os.path.join(MODELS_DIR, "W_dafl.pt"))
+
+# Hybrid Ensemble Definition & Evaluation
+class HybridEnsemble(nn.Module):
+    def __init__(self, base_m, fed_m, alpha=0.3):
+        super().__init__()
+        self.base_m = base_m
+        self.fed_m = fed_m
+        self.alpha = alpha
+    def forward(self, x):
+        return self.alpha * F.softmax(self.base_m(x), dim=1) + (1.0 - self.alpha) * F.softmax(self.fed_m(x), dim=1)
+
+ensemble_model = HybridEnsemble(base_model, global_model, alpha=0.3).to(device)
+
+b_acc_dafl, b_f1_dafl = evaluate_loader_metrics(global_model, global_b_loader, device)
+ood_acc_dafl, ood_f1_dafl = evaluate_loader_metrics(global_model, ood_loader, device)
+
+b_acc_ens, b_f1_ens = evaluate_loader_metrics(ensemble_model, global_b_loader, device)
+ood_acc_ens, ood_f1_ens = evaluate_loader_metrics(ensemble_model, ood_loader, device)
+
+print("="*80)
+print(f"🏆 TRACK 4 (DAFL) FINAL RESULT:")
+print(f"   Global Test B Macro F1: {b_f1_dafl*100:.2f}% (Acc: {b_acc_dafl*100:.2f}%)")
+print(f"   OOD CSIC 2010 Macro F1: {ood_f1_dafl*100:.2f}% (Acc: {ood_acc_dafl*100:.2f}%)")
+print("-"*80)
+print(f"🏆 TRACK 4 (HYBRID ENSEMBLE) FINAL RESULT:")
+print(f"   Global Test B Macro F1: {b_f1_ens*100:.2f}% (Acc: {b_acc_ens*100:.2f}%)")
+print(f"   OOD CSIC 2010 Macro F1: {ood_f1_ens*100:.2f}% (Acc: {ood_acc_ens*100:.2f}%)")
+print("="*80)
+'''),
+    mk_code(COMMON_ZIP_CELL("KMUTNB_TRACK4_DAFL_ENSEMBLE_RESULTS"))
+]
+
+# Write all 4 notebooks
+notebooks = [
+    ("stage_04_track1_centralized_fedavg.ipynb", track1_cells),
+    ("stage_04_track2_fedprox.ipynb", track2_cells),
+    ("stage_04_track3_fedavgm.ipynb", track3_cells),
+    ("stage_04_track4_dafl_ensemble.ipynb", track4_cells)
+]
+
+for filename, cells in notebooks:
+    out_path = os.path.join(KAGGLE_DIR, filename)
+    with open(out_path, 'w', encoding='utf-8') as f:
+        json.dump(create_nb(cells), f, indent=2)
+    print(f"Generated Notebook: {filename}")
+
+print("\nALL 4 PARALLEL KAGGLE NOTEBOOKS SUCCESSFULLY CREATED!")

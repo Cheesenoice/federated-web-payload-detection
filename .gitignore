@@ -56,6 +56,11 @@ models/**/*.safetensors
 *.bin
 *.onnx
 *.safetensors
+*.zip
+
+# Kaggle Output Archives
+outputs_kaggle/
+
 
 # OS / Editor files
 .DS_Store

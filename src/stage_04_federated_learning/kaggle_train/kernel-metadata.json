@@ -1,0 +1,15 @@
+{
+  "id": "trihuynhviprovcl/fedwebpayload-stage-04-full-training",
+  "title": "fedwebpayload-stage-04-full-training",
+  "code_file": "stage_04_full_federated_benchmark.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "false",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "trihuynhviprovcl/kmutnb-webpayload-full-data"
+  ],
+  "kernel_sources": []
+}

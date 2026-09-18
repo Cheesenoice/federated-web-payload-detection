@@ -1,0 +1,15 @@
+{
+  "id": "trihuynhviprovcl/stage-04-track1-centralized-fedavg",
+  "title": "stage-04-track1-centralized-fedavg",
+  "code_file": "stage_04_track1_centralized_fedavg.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "trihuynhviprovcl/kmutnb-webpayload-full-data"
+  ],
+  "kernel_sources": []
+}
